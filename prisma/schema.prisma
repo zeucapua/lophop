@@ -11,13 +11,16 @@ datasource db {
 }
 
 model Project {
-  id      Int    @id @default(autoincrement())
-  title   String
-  author  String
-  link    String
+  id     Int    @id @default(autoincrement())
+  title  String
+  author String
+  link   String
+  Club   Club?  @relation(fields: [clubId], references: [id])
+  clubId Int?
 }
 
 model Club {
   id       Int       @id @default(autoincrement())
   name     String?
+  projects Project[]
 }
