@@ -21,6 +21,6 @@ model Project {
 
 model Club {
   id       Int       @id @default(autoincrement())
-  name     String?
+  name     String    @unique
   projects Project[]
 }

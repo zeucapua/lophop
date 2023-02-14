@@ -29,6 +29,8 @@ export const actions = {
       },
     });
 
+    await prisma.$disconnect();
+
     if (project) {
       const club = await prisma.club.findUnique({
         where: { id: get(club_id) }
