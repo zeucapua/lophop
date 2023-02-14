@@ -1,25 +1,9 @@
 import { get } from "svelte/store";
 import { prisma } from "$lib/prisma";
 import { club_id } from "$lib/stores";
-import { error, fail } from "@sveltejs/kit";
-import type { Actions, PageServerLoad } from "./$types";
+import { fail, error, redirect } from "@sveltejs/kit";
+import type { Actions } from "./$types";
 
-export const load = (async ({ params }) => {
-  console.log("slug:", params.slug); 
-  const club = await prisma.club.findFirst({
-    where: {
-      name: params.slug
-    },
-    include: { projects: true },
-  });
-  await prisma.$disconnect();
-
-  if (club) { 
-    club_id.set(club.id);
-    return { club: club }; 
-  }
-  throw error(404, "Not found");
-}) satisfies PageServerLoad;
 
 export const actions = {
   submit: async ({request}) => {
@@ -37,12 +21,22 @@ export const actions = {
         title: title,
         author: author,
         link: link,
-        clubId: get(club_id),
+        Club: {
+          connect: {
+            id: get(club_id)
+          } 
+        }
       },
     });
 
-    if (project) { return { success: true }; }
+    if (project) {
+      const club = await prisma.club.findUnique({
+        where: { id: get(club_id) }
+      });
+      console.log("club name", club.name);
+      throw redirect(303, `/${club.name}`);
+    }
     throw error(418, "I'm a teapot");
 
   }
-}
+} satisfies Actions;
