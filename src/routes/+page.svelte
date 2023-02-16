@@ -1,26 +1,27 @@
 <script lang="ts">
-  let new_name = "";
 
-  async function createClub() {
-    const response = await fetch("/api/prisma/clubs/single", {
-      method: "POST",
-      body: JSON.stringify({ name: new_name }),
-      headers: { "Content-Type": "application/json" }
-    });
-
-    const data = await response.json();
-    console.log({ data });
-
-  }
 </script>
 
-<main class="flex flex-col gap-8 p-16">
-  <div class="flex flex-row gap-8">
-    <p class="text-lg">lophop status</p>
+<main class="relative flex flex-col bg-base w-screen h-full min-h-screen p-16">
+  <div class="absolute inset-x-0 top-0 px-16 py-8 flex flex-row justify-between">
+    <p class="text-4xl font-black text-content">lophop</p>
+    <div class="flex flex-row gap-8">
+      <button class="px-8 py-4 rounded-full bg-primary text-base font-bold">
+        Create a Club
+      </button>
+      <button class="px-8 py-4 rounded-full text-content border-4 border-secondary">
+        Enter {"->"} 
+      </button>
+    </div>
   </div>
-  
-  <input bind:value={new_name} placeholder="Name" class="border px-4 py-2" />
-  <button on:click={createClub} class="border px-4 py-2 rounded-md">
-    New Club
-  </button>
+
+  <section class="flex flex-col gap-8 p-16">
+    <h1 class="text-9xl text-content font-bold">
+      Where All the Cool Kids 
+      <span class="underline underline-offset-8 decoration-dashed decoration-accent">
+        Code
+      </span>
+    </h1>
+  </section>
+
 </main>
