@@ -23,4 +23,13 @@ model Club {
   id       Int       @id @default(autoincrement())
   name     String    @unique
   projects Project[]
+  User     User?     @relation(fields: [userId], references: [id])
+  userId   Int?
+}
+
+model User {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  email String
+  clubs Club[]
 }

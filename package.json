@@ -24,6 +24,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@authorizerdev/authorizer-svelte": "^0.1.4",
 		"@prisma/client": "^4.10.1"
 	}
 }
