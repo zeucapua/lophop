@@ -9,9 +9,11 @@
       <button class="px-8 py-4 rounded-full bg-primary text-base font-bold">
         Create a Club
       </button>
-      <button class="px-8 py-4 rounded-full text-content border-4 border-secondary">
-        Enter {"->"} 
-      </button>
+      <a href="/login">
+        <button class="px-8 py-4 rounded-full text-content border-4 border-secondary">
+          Enter {"->"} 
+        </button>
+      </a>
     </div>
   </div>
 

@@ -1,11 +1,19 @@
 import { prisma } from "$lib/prisma";
-import { current_advisor } from "$lib/stores";
-import type { PageServerLoad } from "./$types";
+import type { Actions } from "./$types";
 
-export async function load() : PageServerLoad {
-  const advisor = await prisma.advisor.findUnique({
-    where: { auth_id: $current_advisor },
-    include: { clubs: true }
-  });
-  return { advisor: advisor };
+export const actions : Actions = {
+  default: async ({ request }) => {
+    const data = await request.formData();
+    const name = data.get("name");
+    const auth_id = data.get("auth_id");
+
+    const response = await prisma.advisor.upsert({
+      where: { auth_id: auth_id },
+      update: { name: name },
+      create: { name: name, auth_id: auth_id }
+    });
+
+    console.log("Action", { response });
+    return {...response};
+  }
 }
