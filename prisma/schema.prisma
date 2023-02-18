@@ -10,26 +10,34 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Member {
+  id       Int       @id @default(autoincrement())
+  name     String
+  password String
+  projects Project[]
+  club     Club      @relation(fields: [clubId], references: [id])
+  clubId   Int
+}
+
 model Project {
-  id     Int    @id @default(autoincrement())
-  title  String
-  author String
-  link   String
-  Club   Club?  @relation(fields: [clubId], references: [id])
-  clubId Int?
+  id       Int     @id @default(autoincrement())
+  title    String
+  author   String
+  link     String
+  Member   Member? @relation(fields: [memberId], references: [id])
+  memberId Int?
 }
 
 model Club {
   id       Int       @id @default(autoincrement())
   name     String    @unique
-  projects Project[]
-  User     User?     @relation(fields: [userId], references: [id])
-  userId   Int?
+  advisors Advisor[]
+  members  Member[]
 }
 
-model User {
-  id    Int    @id @default(autoincrement())
-  name  String @unique
-  email String
-  clubs Club[]
+model Advisor {
+  id      Int    @id @default(autoincrement())
+  name    String @unique
+  clubs   Club[]
+  auth_id String @unique
 }
