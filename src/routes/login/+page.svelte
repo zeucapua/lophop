@@ -1,11 +1,18 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
+  import { getContext } from "svelte";
   import { Authorizer } from "@authorizerdev/authorizer-svelte";
+  import type { AuthorizerState } from "@authorizerdev/authorizer-svelte/types";
 
   let step = 0;
   let club = "";
   let user_type : "advisor" | "member";
 
+  let auth_state : AuthorizerState;
+  const auth_context = getContext("authorizerContext");
+  auth_context.subscribe((data : AuthorizerState) => { auth_state = data; });
+
+  $: { if (auth_state.user) { goto("/dashboard"); } }
 </script>
 
 <main class="flex flex-col w-full min-w-screen h-full min-h-screen gap-8 p-16">
@@ -16,8 +23,8 @@
     <p class="text-5xl font-bold text-center">Join the Club!</p>
     <div class="w-full max-w-xl mx-auto">
       <Authorizer 
-        onLogin={() => { goto("/dashboard") }}
-        onSignup={() => { goto("/dashboard") }}
+        onLogin={() => { goto("/dashboard"); }}
+        onSignup={() => { goto("/dashboard"); }}
       />
     </div>
   {:else}

@@ -1,8 +1,10 @@
-<script>
+<script lang="ts">
   import "../app.css";
-  import { AuthorizerProvider } from "@authorizerdev/authorizer-svelte";
   import "@authorizerdev/authorizer-svelte/styles/default.css";
+
+  import { AuthorizerProvider } from "@authorizerdev/authorizer-svelte";
   import { PUBLIC_AUTHORIZER_CLIENT_ID } from "$env/static/public";
+
 </script>
 
 <AuthorizerProvider

@@ -37,7 +37,7 @@ model Club {
 
 model Advisor {
   id      Int    @id @default(autoincrement())
-  name    String
+  name    String?
   clubs   Club[]
   auth_id String @unique
 }

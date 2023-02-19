@@ -10,7 +10,8 @@ export const actions : Actions = {
     const response = await prisma.advisor.upsert({
       where: { auth_id: auth_id },
       update: { name: name },
-      create: { name: name, auth_id: auth_id }
+      create: { name: name, auth_id: auth_id },
+      include: { clubs: true } 
     });
 
     console.log("Action", { response });

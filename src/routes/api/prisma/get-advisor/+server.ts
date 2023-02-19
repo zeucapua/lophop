@@ -6,6 +6,7 @@ export async function POST({ request }) : RequestHandler {
   const { auth_id } = await request.json();
   const data = await prisma.advisor.findUnique({
     where: { auth_id: auth_id },
+    include: { clubs: true },
   });
   console.log("POST", { data });
 
