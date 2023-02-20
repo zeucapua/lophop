@@ -9,7 +9,12 @@ module.exports = {
       "accent": "#F6BD60",
       "content": "#F7EDE2",
     },
-    extend: {}
+    extend: {
+      fontFamily: {
+        comiccat: ["ComicCat"],
+        spacemono: ["SpaceMono"],
+      }
+    }
   },
   plugins: [],
 }

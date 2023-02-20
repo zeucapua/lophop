@@ -15,7 +15,7 @@
   $: { if (auth_state.user) { goto("/dashboard"); } }
 </script>
 
-<main class="flex flex-col w-full min-w-screen h-full min-h-screen gap-8 p-16">
+<main class="font-spacemono flex flex-col w-full min-w-screen h-full min-h-screen gap-8 p-16">
 
 {#if step != 0 && user_type}
 

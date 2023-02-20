@@ -2,3 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: ComicCat;
+  src: url("/Comic_CAT.otf");
+}
+
+@font-face {
+  font-family: SpaceMono;
+  src: url("/SpaceMono.ttf");
+}

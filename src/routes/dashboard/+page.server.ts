@@ -2,7 +2,7 @@ import { prisma } from "$lib/prisma";
 import type { Actions } from "./$types";
 
 export const actions : Actions = {
-  default: async ({ request }) => {
+  updateName: async ({ request }) => {
     const data = await request.formData();
     const name = data.get("name");
     const auth_id = data.get("auth_id");
@@ -15,6 +15,6 @@ export const actions : Actions = {
     });
 
     console.log("Action", { response });
-    return {...response};
-  }
+    return { advisor: {...response} };
+  },
 }

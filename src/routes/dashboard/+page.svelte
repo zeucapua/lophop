@@ -37,36 +37,58 @@
   }
 
   onMount(async() => { 
-    if (!form) {
-      console.log("fetched onMount");
+    if (form?.advisor) { advisor = form?.advisor; }
+    else {
       advisor = await getAdvisor(auth_state.user?.id); 
     }
-    else { console.log("fetched Form"); advisor = form as Advisor; }
   });
   
 </script>
 
-{#if auth_state.user}
+<main class="relative font-spacemono flex flex-col w-full min-w-screen h-full min-h-screen bg-base p-16">
+
+{#if auth_state.user?.id}
   {#if !advisor && !form}
+
     <p>What's your name?</p>
-    <form method="POST">
+    <form method="POST" action="?/updateName">
       <input name="name" type="text" />
       <input name="auth_id" type="hidden" value={auth_state.user?.id} />
     </form>
+
   {:else}
-    <p>{advisor.name}</p>
-    <p>{advisor.auth_id}</p>
-    {#if clubs.length > 0}
-      {#each clubs as club}
-        <p>{club.name}</p>
-        <p>{club.id}</p>
-      {/each}
-    {:else}
-      <p>You should create a club</p>
-    {/if}
-    <button on:click={logoutHandler}>Logout</button>
+
+    <nav class="absolute inset-x-0 top-0 bg-base items-center shadow-lg px-8 py-4 flex flex-row">
+      <img src="lophop.png" alt="Lophop logo" class="aspect-square w-16" />
+      <button on:click={logoutHandler} class="text-xl text-content">Logout</button>
+    </nav>
+
+    <section class="flex flex-col gap-8 py-16">
+      <p class="text-8xl text-content font-comiccat">Hello {advisor.name}!</p>
+
+      <div class="flex flex-col gap-8">
+        <p class="text-5xl text-content font-comiccat">Clubs</p>
+        <section 
+        class="flex flex-col gap-8 w-fit h-full p-8 border border-content rounded-md">
+          {#if clubs.length > 0}
+            {#each clubs as club}
+              <p>{club.name}</p>
+              <p>{club.id}</p>
+            {/each}
+          {:else}
+            <p class="text-3xl text-content">You don't have any clubs!</p> 
+            <p class="text-3xl text-content">Create or Join One using the + button</p> 
+          {/if}
+        </section>
+      </div>
+    </section>
+
   {/if}
 {:else}
-  <p>There's been an error!</p>
-  <a href="/login">Go back to Login</a>
+  <section>
+    <p>There's been an error!</p>
+    <a href="/login">Go back to Login</a>
+  </section>
 {/if}
+
+</main>
