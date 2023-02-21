@@ -27,7 +27,6 @@
     });
     const result = await response.json();
     const data = result.data;
-    console.log({data});
     clubs = data.clubs;
     return {
       id: data.id,
@@ -76,6 +75,7 @@
               <p>{club.id}</p>
             {/each}
           {:else}
+            <button>+</button>
             <p class="text-3xl text-content">You don't have any clubs!</p> 
             <p class="text-3xl text-content">Create or Join One using the + button</p> 
           {/if}

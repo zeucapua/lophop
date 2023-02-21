@@ -31,13 +31,14 @@ model Project {
 model Club {
   id       Int       @id @default(autoincrement())
   name     String    @unique
+  secret   String
   advisors Advisor[]
   members  Member[]
 }
 
 model Advisor {
-  id      Int    @id @default(autoincrement())
+  id      Int     @id @default(autoincrement())
   name    String?
   clubs   Club[]
-  auth_id String @unique
+  auth_id String  @unique
 }
