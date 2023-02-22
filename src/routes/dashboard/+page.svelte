@@ -66,16 +66,19 @@
       <p class="text-8xl text-content font-comiccat">Hello {advisor.name}!</p>
 
       <div class="flex flex-col gap-8">
-        <p class="text-5xl text-content font-comiccat">Clubs</p>
+        <p class="text-5xl text-content font-comiccat">
+          Clubs
+          <span>
+            <a href="/dashboard/add-club"><button>+</button></a>
+          </span>
+        </p>
         <section 
         class="flex flex-col gap-8 w-fit h-full p-8 border border-content rounded-md">
           {#if clubs.length > 0}
             {#each clubs as club}
               <p>{club.name}</p>
-              <p>{club.id}</p>
             {/each}
           {:else}
-            <button>+</button>
             <p class="text-3xl text-content">You don't have any clubs!</p> 
             <p class="text-3xl text-content">Create or Join One using the + button</p> 
           {/if}

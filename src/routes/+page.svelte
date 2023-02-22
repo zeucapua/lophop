@@ -6,12 +6,9 @@
   <div class="absolute inset-x-0 top-0 px-16 py-8 flex flex-row justify-between">
     <p class="text-4xl font-black text-content font-comiccat">lophop</p>
     <div class="flex flex-row gap-8">
-      <button class="px-8 py-4 rounded-full bg-primary text-base font-bold">
-        Create a Club
-      </button>
       <a href="/login">
-        <button class="px-8 py-4 rounded-full text-content border-4 border-secondary">
-          Enter {"->"} 
+        <button class="px-8 py-4 rounded-full bg-primary text-base font-bold">
+          Join the Club 
         </button>
       </a>
     </div>
