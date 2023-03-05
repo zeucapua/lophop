@@ -1,7 +1,3 @@
-<script lang="ts">
-
-</script>
-
 <main class="relative flex flex-col font-spacemono bg-base w-screen h-full min-h-screen p-16">
   <div class="absolute inset-x-0 top-0 px-16 py-8 flex flex-row justify-between">
     <p class="text-4xl font-black text-content font-comiccat">lophop</p>
