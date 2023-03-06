@@ -4,6 +4,7 @@ import type { Actions } from "@sveltejs/kit";
 
 export async function load({ cookies }) {
   const auth_id = cookies.get("auth_id");
+  console.log("DASHBOARD", { auth_id });
 
   const advisor = await prisma.advisor.findUnique({
     where: { auth_id: auth_id, },
