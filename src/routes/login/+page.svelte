@@ -23,6 +23,10 @@
 
 </script>
 
-<main class="flex flex-col w-full min-w-screen h-full min-h-screen p-16">
-  <Authorizer onLogin={(loginResponse) => loginHandler(loginResponse)}/>
+<main class="flex flex-col gap-8 w-full min-w-screen justify-center items-center h-full min-h-screen p-16">
+  <h1 class="text-6xl font-comiccat">Club Advisor Login</h1>
+  <section class="w-full max-w-xl border-4 p-12">
+    <Authorizer onLogin={(loginResponse) => loginHandler(loginResponse)}/>
+  </section>
+  <button>Login as a student</button>
 </main>

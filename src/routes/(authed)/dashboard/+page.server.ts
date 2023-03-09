@@ -22,7 +22,7 @@ export async function load({ cookies }) {
 }
 
 export const actions : Actions = {
-  default: async ({cookies}) => {
+  logout: async ({cookies}) => {
     cookies.delete("auth_id");
     cookies.delete("access_token");
     throw redirect(303, "/");

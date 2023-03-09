@@ -7,8 +7,10 @@
   $: console.log({ advisor });
 </script>
 
-<p>Dashboard</p>
-<p>Advisor Id: {advisor.id}</p>
-<form method="POST">
-  <button>Logout</button>
-</form>
+<main>
+  <p>Dashboard</p>
+  <p>Advisor Id: {advisor.id}</p>
+  <form method="POST" action="?/logout">
+    <button>Logout</button>
+  </form>
+</main>
