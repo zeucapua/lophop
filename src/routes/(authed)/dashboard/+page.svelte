@@ -7,7 +7,7 @@
   $: console.log({ advisor });
 </script>
 
-<main>
+<main class="flex flex-col w-full min-w-screen h-full min-h-screen p-16 gap-8">
   <p>Dashboard</p>
   <p>Advisor Id: {advisor.id}</p>
   <form method="POST" action="?/logout">
