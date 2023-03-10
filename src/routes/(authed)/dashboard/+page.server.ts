@@ -2,24 +2,38 @@ import { prisma } from "$lib/prisma";
 import { fail, redirect } from "@sveltejs/kit";
 import slugify from "@sindresorhus/slugify";
 import type { Actions } from "@sveltejs/kit";
+import type { Advisor, Club } from "@prisma/client";
 
 export async function load({ cookies }) {
   const auth_id = cookies.get("auth_id");
   console.log("DASHBOARD", { auth_id });
 
-  const advisor = await prisma.advisor.findUnique({
+  const response = await prisma.advisor.findUnique({
     where: { auth_id: auth_id, },
+    include: { clubs: true }
   });
 
-  if (!advisor) {
-    const newAdvisor = await prisma.advisor.create({
+  if (!response) {
+    const response = await prisma.advisor.create({
       data: { auth_id: auth_id }
     });
 
-    return { advisor: newAdvisor }
+    const a = {
+      id: response.id,
+      name: response.name,
+      auth_id: auth_id
+    } as Advisor;
+
+    return { advisor: a, clubs: [] }
   }
 
-  return { advisor }
+  const a = {
+    id: response.id,
+    name: response.name,
+    auth_id: auth_id
+  } as Advisor;
+
+  return { advisor: a, clubs: response.clubs }
 }
 
 export const actions : Actions = {
@@ -41,10 +55,11 @@ export const actions : Actions = {
     if (response) {
       const exisiting_advisors = response.advisors;
       for (const a of exisiting_advisors) {
-        if (a.auth_id === auth_id) { return { status: "already in" }; }
+        if (a.auth_id === auth_id) { return { status: "presently" }; }
       }
       return { club_name, status: "found", advisors: exisiting_advisors}; 
     }
+    return { club_name, status: "available" }
   },
   createClub: async ({ params, request }) => {
     const data = await request.formData();
