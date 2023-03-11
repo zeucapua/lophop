@@ -21,15 +21,19 @@
     <section class="flex flex-col basis-1/2 gap-8">
       <div class="flex flex-row justify-between items-center border-b-4 py-4">
         <p class="text-3xl font-comiccat">Clubs</p>
-        <a href="/create">
+        <a href="/create/?value=club">
           <button class="text-xl font-comiccat border-2 px-4 py-2 border-dotted hover:border-solid">
             + Create
           </button>
         </a>
       </div>
       {#each clubs as club}
-        <div class="border-2 rounded-md px-4 py-2">
+        <div class="flex flex-row justify-between border-2 rounded-md px-4 py-2">
           <p class="text-xl font-spacemono">{club.name}</p>
+          <form method="POST" action="?/deleteClub">
+            <input name="club_name" type="hidden" value={club.name} />
+            <button>Delete</button>
+          </form>
         </div>
       {/each}
     </section>

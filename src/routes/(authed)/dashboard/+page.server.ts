@@ -42,27 +42,10 @@ export const actions : Actions = {
     cookies.delete("access_token");
     throw redirect(303, "/");
   },
-  findClub: async ({ cookies, request }) => {
+  deleteClub: async ({ request }) => {
     const data = await request.formData();
-    const club_name = slugify(data.get("club_name"));
-    const auth_id = cookies.get("auth_id");
+    const club_name = data.get("club_name");
 
-    const response = await prisma.club.findUnique({
-      where: { name: club_name },
-      include: { advisors: true }
-    });
-
-    if (response) {
-      const exisiting_advisors = response.advisors;
-      for (const a of exisiting_advisors) {
-        if (a.auth_id === auth_id) { return { status: "presently" }; }
-      }
-      return { club_name, status: "found", advisors: exisiting_advisors}; 
-    }
-    return { club_name, status: "available" }
-  },
-  createClub: async ({ params, request }) => {
-    const data = await request.formData();
-    const secret = data.get("secret");
-  },
+    await prisma.club.delete({ where: { name: club_name } });
+  }
 }

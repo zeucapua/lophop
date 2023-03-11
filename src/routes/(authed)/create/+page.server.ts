@@ -1,11 +1,7 @@
 import { prisma } from "$lib/prisma";
 import slugify from "@sindresorhus/slugify";
-import { redirect } from "@sveltejs/kit";
+import { fail, redirect } from "@sveltejs/kit";
 import type { Actions } from "@sveltejs/kit";
-
-export async function load({ url }) {
-
-}
 
 export const actions : Actions = {
   findClub: async ({ cookies, request }) => {
@@ -35,8 +31,14 @@ export const actions : Actions = {
     const auth_id = cookies.get("auth_id") as string;
     const status = data.get("status") as string ;
     const secret = data.get("secret") as string;
+    const secret2 = data.get("secret2") as string;
 
     const club_name = slugify(club_input);
+
+    if (secret != secret2) {
+      return fail(400, { club_name, status, unmatching: true });
+    }
+
 
     if (status === "found") {
       const response = await prisma.club.findUnique({

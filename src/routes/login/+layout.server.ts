@@ -7,9 +7,4 @@ export async function load({ cookies }) {
   if (access_token && auth_id) {
     throw redirect(308, "/dashboard");
   }
-  else {
-    // insurance
-    await cookies.delete("auth_id");
-    await cookies.delete("access_token");
-  }
 }
