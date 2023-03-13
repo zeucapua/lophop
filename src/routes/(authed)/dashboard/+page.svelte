@@ -30,8 +30,9 @@
       {#each clubs as club}
         <div class="flex flex-row justify-between border-2 rounded-md px-4 py-2">
           <p class="text-xl font-spacemono">{club.name}</p>
+          <p class="text-lg font-spacemono">{club.slug}</p>
           <form method="POST" action="?/deleteClub">
-            <input name="club_name" type="hidden" value={club.name} />
+            <input name="club_slug" type="hidden" value={club.slug} />
             <button>Delete</button>
           </form>
         </div>
