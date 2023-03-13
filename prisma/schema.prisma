@@ -16,7 +16,8 @@ model Advisor {
 
 model Club {
   id      Int       @id @default(autoincrement())
-  name    String    @unique
+  name    String    
+  slug String @unique
   secret  String
   members Member[]
   advisors Advisor[]
