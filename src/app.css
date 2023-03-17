@@ -11,3 +11,13 @@
   font-family: SpaceMono;
   src: url("/SpaceMono.ttf");
 }
+
+@font-face {
+  font-family: Chillax;
+  src: url("/Chillax-Variable.ttf");
+}
+
+@font-face {
+  font-family: Poppins;
+  src: url("/Poppins-Variable.ttf");
+}

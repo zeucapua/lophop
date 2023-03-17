@@ -13,6 +13,8 @@ module.exports = {
       fontFamily: {
         comiccat: ["ComicCat"],
         spacemono: ["SpaceMono"],
+        chillax: ["Chillax"],
+        poppins: ["Poppins"],
       }
     }
   },

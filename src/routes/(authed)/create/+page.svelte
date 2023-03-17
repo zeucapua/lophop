@@ -29,17 +29,17 @@
 
 {#if value === "club"}
 
-<form method="POST" use:enhance class="flex flex-col gap-8 border-solid p-8 border-4">
+<form method="POST" use:enhance class="flex flex-col gap-8 border-solid p-8 w-fit mx-auto border-4">
   <fieldset class="flex flex-col gap-8 items-center">
-    <p class="text-5xl font-comiccat text-center">Lead a Club!</p>
+    <p class="text-5xl font-chillax font-semibold text-center">Lead a Club!</p>
     <div class="flex flex-row gap-4">
       <input 
         name="club_name" type="text" value={form?.club_name ?? ""}
-        class="border-2 px-4 py-2 text-xl font-spacemono border-dotted focus:border-solid"
+        class="border-2 px-4 py-2 text-xl font-poppins border-dotted focus:border-solid"
       />
       <button 
         formAction="?/findClub"
-        class="border-2 border-dotted px-4 py-2 hover:border-solid font-comiccat">
+        class="border-2 border-dotted px-4 py-2 hover:border-solid font-spacemono">
         Find
       </button>
     </div>
@@ -47,7 +47,7 @@
 
   {#if form}
 
-    <fieldset class="flex flex-row mx-auto justify-center w-full max-w-3xl h-full gap-8">
+    <fieldset class="flex flex-row mx-auto font-poppins justify-center w-full max-w-3xl h-full gap-8">
       {#if form.status === "presently" || form.status === "found"}
         <div class="flex border-2 border-neutral-600 px-8 py-4 items-center">
           {#if form.status === "presently"}
@@ -82,7 +82,7 @@
 
     {#if action} 
       <fieldset class="flex flex-col items-center gap-8">
-        <p class="font-comiccat text-center">Enter the Club's Secret</p>
+        <p class="font-chillax text-center font-semibold text-xl">Enter the Club's Secret</p>
 
         {#if form.unmatched}
           <p class="text-red font-spacemono">Secrets must be the same!</p> 
@@ -90,17 +90,17 @@
 
         <input 
           name="secret" type="password" placeholder="Secret"
-          class="border border-dotted focus:border-solid px-4 py-2 font-spacemono"
+          class="border border-dotted focus:border-solid px-4 py-2 font-poppins"
         />
         <input 
           name="confirm_secret" type="password" placeholder="Confirm Secret"
-          class="border border-dotted focus:border-solid px-4 py-2 font-spacemono"
+          class="border border-dotted focus:border-solid px-4 py-2 font-poppins"
         />
 
         {#if action === "join"}
           <button 
             formAction="?/joinClub"
-            class="border-2 border-dotted focus:border-solid px-4 py-2 font-comiccat"
+            class="border-2 border-dotted focus:border-solid px-4 py-2 font-spacemono"
           >
             Join
           </button>
@@ -108,7 +108,7 @@
         {#if action === "create"}
           <button 
             formAction="?/createClub"
-            class="border-2 border-dotted focus:border-solid px-4 py-2 font-comiccat"
+            class="border-2 border-dotted focus:border-solid px-4 py-2 font-spacemono"
           >
             Create
           </button>
