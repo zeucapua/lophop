@@ -8,12 +8,12 @@
   const auth_context = getContext("authorizerContext");
   auth_context.subscribe( (data : AuthorizerState) => { auth_state = data } );
 
-  async function loginHandler(loginResponse) {
-    console.log({ loginResponse });
-    if (loginResponse.message === "Logged in successfully") {
-      const auth_id = loginResponse.user.id;
-      const access_token = loginResponse.access_token;
-      const expires_in = loginResponse.expires_in;
+  async function authHandler(authResponse) {
+    const message = authResponse.message;
+    if (message === "Logged in successfully" || message === "Signed up successfully.") {
+      const auth_id = authResponse.user.id;
+      const access_token = authResponse.access_token;
+      const expires_in = authResponse.expires_in;
 
       await auth_state.logout();
       console.log("LOGIN", { auth_id, access_token, expires_in });
@@ -24,9 +24,12 @@
 </script>
 
 <main class="flex flex-col gap-8 w-full min-w-screen justify-center items-center h-full min-h-screen p-16">
-  <h1 class="text-6xl font-chillax">Club Advisor Login</h1>
+  <h1 class="text-6xl font-quicksand">Club Advisor Login</h1>
   <section class="w-full max-w-xl border-4 p-12">
-    <Authorizer onLogin={(loginResponse) => loginHandler(loginResponse)}/>
+    <Authorizer 
+      onLogin={(loginResponse) => authHandler(loginResponse)}
+      onSignup={(signupResponse) => authHandler(signupResponse)}
+    />
   </section>
   <button>Login as a student</button>
 </main>

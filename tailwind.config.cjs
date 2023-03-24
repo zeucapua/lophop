@@ -11,10 +11,10 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        comiccat: ["ComicCat"],
         spacemono: ["SpaceMono"],
         chillax: ["Chillax"],
         poppins: ["Poppins"],
+        quicksand: ["Quicksand"],
       }
     }
   },

@@ -3,11 +3,6 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: ComicCat;
-  src: url("/Comic_CAT.otf");
-}
-
-@font-face {
   font-family: SpaceMono;
   src: url("/SpaceMono.ttf");
 }
@@ -20,4 +15,9 @@
 @font-face {
   font-family: Poppins;
   src: url("/Poppins-Variable.ttf");
+}
+
+@font-face {
+  font-family: Quicksand;
+  src: url("/Quicksand-Variable.ttf");
 }

@@ -1,10 +1,8 @@
 import { prisma } from "$lib/prisma";
 import { fail, redirect } from "@sveltejs/kit";
-import type { Actions } from "@sveltejs/kit";
 import slugify from "@sindresorhus/slugify";
-import { onMount } from "svelte";
 
-export const actions : Actions = {
+export const actions = {
   findClub: async ({ cookies, request }) => {
     const data = await request.formData();
     const club_name = data.get("club_name") as string;

@@ -9,7 +9,11 @@ export async function load({ cookies }) {
 
   const response = await prisma.advisor.findUnique({
     where: { auth_id: auth_id, },
-    include: { clubs: true }
+    include: { 
+      clubs: {
+        select: { name: true, slug: true }
+      } 
+    }
   });
 
   if (!response) {
