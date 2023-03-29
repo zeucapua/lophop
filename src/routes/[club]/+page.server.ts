@@ -3,6 +3,8 @@ import { redirect, error, fail } from "@sveltejs/kit";
 
 export async function load({ cookies, params }) {
   const club_slug = params.club;
+
+  if (cookies.get(club_slug)) { throw redirect(307, `/${club_slug}/home`); }
   
   const club = await prisma.club.findUnique({
     where: { slug: club_slug },
@@ -12,13 +14,12 @@ export async function load({ cookies, params }) {
   });
 
   if (!club) { throw error(404, { message: "Club Not Found" }); }
-
   return { club }
 }
 
 
 export const actions = {
-  default: async ({ cookies, request, params }) => {
+  whisper: async ({ cookies, request, params }) => {
     const club_slug = params.club;
     const club = await prisma.club.findUnique({
       where: { slug: club_slug },
@@ -39,4 +40,5 @@ export const actions = {
 
     throw redirect(308, `/${club_slug}/home`);
   },
+  enter: async ({ request }) 
 }

@@ -1,11 +1,11 @@
 <script lang="ts">
-  import type { PageData } from "./$types";
-  export let data : PageData;
-  
+  import { enhance } from '$app/forms';
+  export let data;
+  export let form; 
 </script>
 
 
-<form method="POST">
+<form method="POST" use:enhance>
   <input name="secret" type="password" placeholder="Enter Secret" />
-  <button>Enter</button>
+  <button formaction="?/whisper">Enter</button>
 </form>

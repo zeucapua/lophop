@@ -1,8 +1,7 @@
 import { prisma } from "$lib/prisma";
-import { error, fail, redirect } from "@sveltejs/kit";
-import slugify from "@sindresorhus/slugify";
+import { error, redirect } from "@sveltejs/kit";
 import type { Actions } from "@sveltejs/kit";
-import type { Advisor, Club } from "@prisma/client";
+import type { Advisor } from "@prisma/client";
 
 export async function load({ cookies }) {
   const auth_id = cookies.get("auth_id");
