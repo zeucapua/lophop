@@ -1,5 +1,5 @@
 import { prisma } from "$lib/prisma";
 
-export async function load({ cookies, params }) {
+export async function load({ cookies }) {
 
 }

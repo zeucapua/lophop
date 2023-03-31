@@ -40,5 +40,4 @@ export const actions = {
 
     throw redirect(308, `/${club_slug}/home`);
   },
-  enter: async ({ request }) 
 }
