@@ -2,13 +2,10 @@
   import type { PageData } from "./$types";
 
   export let data : PageData;
-  const advisor = data.advisor; 
   const clubs = data.clubs;
-
-  $: console.log({ advisor });
 </script>
 
-<main class="flex flex-col w-full h-full p-8 gap-8">
+<main class="flex flex-col w-full gap-8">
   <section class="flex flex-row justify-between border-b-4 py-4 items-center">
     <p class="text-3xl font-quicksand font-semibold">Dashboard</p>
     <form method="POST" action="?/logout">

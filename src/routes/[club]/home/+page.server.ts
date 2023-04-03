@@ -1,5 +1,11 @@
-import { prisma } from "$lib/prisma";
+import { redirect } from "@sveltejs/kit";
 
-export async function load({ cookies }) {
+export const actions = {
+  logout: async ({ cookies, params }) => {
+    const club_slug = params.club;
+    cookies.delete(club_slug);
+    cookies.delete("member_id");
 
+    throw redirect(303, "/");
+  }
 }

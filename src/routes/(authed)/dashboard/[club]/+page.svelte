@@ -8,7 +8,6 @@
 
 <main class="flex flex-col w-full h-full min-w-screen min-h-screen gap-8 p-8">
   <nav class="flex flex-row border-b-4 py-4 items-center justify-between">
-    <a href="/dashboard" class="font-poppins">Back to Dashboard</a>
     <h1 class="text-3xl font-bold font-quicksand">Club { club.name }</h1>
     <a href={`/${club.slug}`} class="font-poppins">Home</a>
   </nav>
@@ -24,10 +23,10 @@
 
     {#if show_add_member}
       <form method="POST" action="?/register">
-        <input name="name" type="text" />
-        <input name="password" type="password" />
+        <input name="name" type="text" class="border-2 rounded-lg px-4 py-2" />
+        <input name="password" type="password" class="border-2 rounded-lg px-4 py-2" />
         <input name="club_slug" type="hidden" value={club.slug} />
-        <button>Register</button>
+        <button class="font-poppins border-2 rounded-lg px-4 py-2">Register</button>
       </form>
     {/if}
 

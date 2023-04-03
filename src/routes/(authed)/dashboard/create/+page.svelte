@@ -25,7 +25,7 @@
   }
 </script>
 
-<main class="flex flex-col justify-center w-full min-w-screen h-full min-h-screen p-16 gap-8">
+<main class="flex flex-col justify-center w-full min-w-screen p-8 gap-8">
 
 {#if value === "club"}
 
