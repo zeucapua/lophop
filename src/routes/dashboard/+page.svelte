@@ -2,7 +2,8 @@
   import type { PageData } from "./$types";
 
   export let data : PageData;
-  const clubs = data.clubs;
+  const advisor = data.advisor;
+  const clubs = advisor.clubs;
 </script>
 
 <main class="flex flex-col w-full gap-8">

@@ -17,7 +17,7 @@
 
       await auth_state.logout();
       console.log("LOGIN", { auth_id, access_token, expires_in });
-      goto(`/redirect/?auth_id=${auth_id}&access_token=${access_token}&expires_in=${expires_in}`);
+      goto(`/authenticate/?auth_id=${auth_id}&access_token=${access_token}&expires_in=${expires_in}`);
     }
   }
 

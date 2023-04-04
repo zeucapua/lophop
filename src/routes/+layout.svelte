@@ -1,8 +1,6 @@
 <script lang="ts">
   import "../app.css";
   export let data;
-
-  $: console.log({ data });
 </script>
 
 <main class="relative flex flex-col w-full min-w-screen h-full min-h-screen p-16 gap-8">
