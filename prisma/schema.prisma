@@ -34,10 +34,9 @@ model Member {
 }
 
 model Project {
-  id       Int     @id @default(autoincrement())
-  title    String
-  author   String
-  link     String
-  memberId Int?
-  Member   Member? @relation(fields: [memberId], references: [id])
+  id      Int      @id @default(autoincrement())
+  title   String
+  link    String
+  content String
+  members Member[]
 }

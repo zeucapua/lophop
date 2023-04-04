@@ -23,6 +23,13 @@ const auth : Handle = async ({ event, resolve }) => {
 };
 
 const routing : Handle = async ({ event, resolve }) => {
+  if (event.url.pathname.startsWith("/login")) {
+    if (event.cookies.get("auth_id")) {
+      throw redirect(308, "/dashboard");
+    }
+  }
+
+
   if (event.url.pathname.startsWith("/authenticate")) {
     const auth_id = event.url.searchParams.get("auth_id");
     const access_token = event.url.searchParams.get("access_token");

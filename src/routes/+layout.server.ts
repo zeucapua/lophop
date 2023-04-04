@@ -1,11 +1,11 @@
-export async function load({ cookies }) {
+export async function load({ locals }) {
   let layout_data = {};
 
-  const access_token = cookies.get("access_token");
 
-  if (access_token) {
+  if (locals.advisor) {
     layout_data = {...layout_data, logged_in: true };
   }
 
+  console.log({ layout_data });
   return layout_data;
 }
