@@ -11,7 +11,7 @@ model Advisor {
   id      Int     @id @default(autoincrement())
   name    String?
   auth_id String  @unique
-  clubs   Club[]
+  clubs   Club[]  @relation("AdvisorToClub")
 }
 
 model Club {
@@ -20,17 +20,17 @@ model Club {
   slug     String    @unique
   secret   String
   members  Member[]
-  advisors Advisor[]
+  advisors Advisor[] @relation("AdvisorToClub")
 }
 
 model Member {
   id       Int       @id @default(autoincrement())
   name     String
   password String
-  avatar   Int
   clubId   Int
+  avatar   Int
   Club     Club      @relation(fields: [clubId], references: [id])
-  projects Project[]
+  projects Project[] @relation("MemberToProject")
 }
 
 model Project {
@@ -38,5 +38,5 @@ model Project {
   title   String
   link    String
   content String
-  members Member[]
+  members Member[] @relation("MemberToProject")
 }

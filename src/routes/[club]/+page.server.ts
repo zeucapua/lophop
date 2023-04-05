@@ -1,26 +1,9 @@
 import { prisma } from "$lib/prisma";
-import { redirect, error, fail } from "@sveltejs/kit";
+import { redirect, fail } from "@sveltejs/kit";
 
-export async function load({ cookies, params }) {
-  const club_slug = params.club;
-
-  
-  const club = await prisma.club.findUnique({
-    where: { slug: club_slug },
-    select: {
-      name: true,
-      members: true,
-    }
-  });
-
-  if (cookies.get(club_slug)) {
-    return { club, skip: true }  
-  }
-
-  if (!club) { throw error(404, { message: "Club Not Found" }); }
-  return { club }
+export async function load({ locals }) {
+  return { club: locals.club };
 }
-
 
 export const actions = {
   whisper: async ({ cookies, request, params }) => {
@@ -46,13 +29,9 @@ export const actions = {
   },
   enter: async ({ cookies, params, request }) => {
     const data = await request.formData();
-    const member_id = parseInt(data.get("member_id"));
+    const member_id = data.get("member_id");
 
-    const member = await prisma.member.findUnique({
-      where: { id: member_id }
-    });
-
-    cookies.set("logged_in", member?.id, {
+    cookies.set("member_id", member_id, {
       path: "/",
       maxAge: 1800,
     });

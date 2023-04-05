@@ -39,6 +39,7 @@
             <img 
               src={`/abstract-characters/abstract-character-${member.avatar}.svg`}
               alt={`${member.name} avatar`}
+              class="aspect-square"
             />
             <div class="flex flex-row justify-between gap-8">
               <p>{member.name}</p>
