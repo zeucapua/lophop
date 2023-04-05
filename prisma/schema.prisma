@@ -21,22 +21,32 @@ model Club {
   secret   String
   members  Member[]
   advisors Advisor[] @relation("AdvisorToClub")
+  projects Project[]
 }
 
 model Member {
-  id       Int       @id @default(autoincrement())
-  name     String
-  password String
-  clubId   Int
-  avatar   Int
-  Club     Club      @relation(fields: [clubId], references: [id])
-  projects Project[] @relation("MemberToProject")
+  id          Int          @id @default(autoincrement())
+  name        String
+  password    String
+  clubId      Int
+  avatar      Int
+  Club        Club         @relation(fields: [clubId], references: [id])
+  submissions Submission[]
 }
 
 model Project {
-  id      Int      @id @default(autoincrement())
-  title   String
-  link    String
-  content String
-  members Member[] @relation("MemberToProject")
+  id          Int          @id @default(autoincrement())
+  title       String
+  content     String
+  club        Club         @relation(fields: [clubId], references: [id])
+  submissions Submission[]
+  clubId      Int
+}
+
+model Submission {
+  id        Int      @id @default(autoincrement())
+  content   String
+  members   Member[]
+  Project   Project? @relation(fields: [projectId], references: [id])
+  projectId Int?
 }

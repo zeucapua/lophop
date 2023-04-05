@@ -10,7 +10,7 @@
       <button class="font-quicksand text-3xl font-bold">Lophop</button>
     </a>
 
-    <a href="/dashboard" data-sveltekit-reload>
+    <a href="/login">
       <button class="font-poppins border-2 rounded-xl px-8 py-4 text-xl">
         Dashboard 
       </button>

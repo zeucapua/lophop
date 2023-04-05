@@ -46,7 +46,7 @@ const auth : Handle = async ({ event, resolve }) => {
           select: {
             name: true,
             avatar: true,
-            projects: true,
+            submissions: true,
           }
         });
 
@@ -67,6 +67,7 @@ const routing : Handle = async ({ event, resolve }) => {
   const is_club_home = event.url.pathname.startsWith(`/${club_slug}/home`);
 
   if (is_login) {
+    console.log(event.cookies.get("auth_id"));
     if (event.cookies.get("auth_id")) {
       console.log("login to dashboard");
       throw redirect(308, "/dashboard");
@@ -84,6 +85,7 @@ const routing : Handle = async ({ event, resolve }) => {
       throw redirect(307, "/login");
     }
 
+    console.log({ auth_id, access_token, expires_in });
 
     event.cookies.set("auth_id", auth_id, {
       path: "/",
