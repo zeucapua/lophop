@@ -42,6 +42,7 @@ model Project {
   clubSlug    String
   club        Club         @relation(fields: [clubSlug], references: [slug])
   submissions Submission[]
+  clubId      String
 }
 
 model Submission {
@@ -57,4 +58,11 @@ model Liveroom {
   fabric String?
   clubId String?
   Club   Club?   @relation(fields: [clubId], references: [id])
+}
+
+model Liveroom {
+  id     String  @id @unique @default(cuid())
+  fabric String?
+  Club   Club?   @relation(fields: [clubId], references: [id])
+  clubId String?
 }

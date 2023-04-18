@@ -2,25 +2,20 @@
   import { getContext } from "svelte";
   import { goto } from "$app/navigation";
   import { Authorizer } from "@authorizerdev/authorizer-svelte";
+  import type { AuthToken } from "@authorizerdev/authorizer-js";
   import type { AuthorizerState } from "@authorizerdev/authorizer-svelte/types";
 
   let auth_state : AuthorizerState;
   const auth_context = getContext("authorizerContext");
   auth_context.subscribe( (data : AuthorizerState) => { auth_state = data } );
 
-  async function authHandler(authResponse) {
-    const message = authResponse.message;
+  async function authHandler(auth_response : AuthToken) {
+    console.log({ auth_response });
+    const message = auth_response.message;
     if (message === "Logged in successfully" || message === "Signed up successfully.") {
-      const auth_id = authResponse.user.id;
-      const access_token = authResponse.access_token;
-      const expires_in = authResponse.expires_in;
-
-      await auth_state.logout();
-      console.log("LOGIN", { auth_id, access_token, expires_in });
-      goto(`/authenticate/?auth_id=${auth_id}&access_token=${access_token}&expires_in=${expires_in}`);
+      goto(`/authenticate?access_token=${auth_response.access_token}&expires_in=${auth_response.expires_in}`);
     }
   }
-
 </script>
 
 <main class="flex flex-col gap-8 w-full min-w-screen justify-center items-center p-8">
@@ -31,5 +26,4 @@
       onSignup={(signupResponse) => authHandler(signupResponse)}
     />
   </section>
-  <button>Login as a student</button>
 </main>
