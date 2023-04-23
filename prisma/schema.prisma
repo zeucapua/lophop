@@ -15,38 +15,46 @@ model Advisor {
 }
 
 model Club {
-  id       Int       @id @default(autoincrement())
+  id       String     @id @unique
   name     String
-  slug     String    @unique
+  slug     String     @unique
   secret   String
+  Liveroom Liveroom[]
   members  Member[]
-  advisors Advisor[] @relation("AdvisorToClub")
   projects Project[]
+  advisors Advisor[]  @relation("AdvisorToClub")
 }
 
 model Member {
   id          Int          @id @default(autoincrement())
   name        String
   password    String
-  clubId      Int
+  clubId      String
   avatar      Int
   Club        Club         @relation(fields: [clubId], references: [id])
-  submissions Submission[]
+  submissions Submission[] @relation("MemberToSubmission")
 }
 
 model Project {
   id          Int          @id @default(autoincrement())
   title       String
   content     String
+  clubId      String
   club        Club         @relation(fields: [clubId], references: [id])
   submissions Submission[]
-  clubId      Int
 }
 
 model Submission {
   id        Int      @id @default(autoincrement())
   content   String
-  members   Member[]
-  Project   Project? @relation(fields: [projectId], references: [id])
   projectId Int?
+  Project   Project? @relation(fields: [projectId], references: [id])
+  members   Member[] @relation("MemberToSubmission")
+}
+
+model Liveroom {
+  id     String  @id @unique
+  fabric String?
+  clubId String?
+  Club   Club?   @relation(fields: [clubId], references: [id])
 }
