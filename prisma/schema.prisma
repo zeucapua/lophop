@@ -15,7 +15,7 @@ model Advisor {
 }
 
 model Club {
-  id       String     @id @unique
+  id       String     @id @unique @default(cuid())
   name     String
   slug     String     @unique
   secret   String
@@ -36,18 +36,18 @@ model Member {
 }
 
 model Project {
-  id          Int          @id @default(autoincrement())
+  id          String       @id @default(cuid())
   title       String
   content     String
-  clubId      String
-  club        Club         @relation(fields: [clubId], references: [id])
+  clubSlug    String
+  club        Club         @relation(fields: [clubSlug], references: [slug])
   submissions Submission[]
 }
 
 model Submission {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(cuid())
   content   String
-  projectId Int?
+  projectId String?
   Project   Project? @relation(fields: [projectId], references: [id])
   members   Member[] @relation("MemberToSubmission")
 }

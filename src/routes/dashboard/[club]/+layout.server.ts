@@ -11,6 +11,7 @@ export async function load({ params }) {
       members: true,
       advisors: true,
       slug: true,
+      projects: true,
     }
   });
 

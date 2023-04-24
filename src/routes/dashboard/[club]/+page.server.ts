@@ -1,6 +1,4 @@
 import { prisma } from "$lib/prisma";
-import { error } from "@sveltejs/kit";
-
 
 export const actions = {
   register: async ({ request }) => {
@@ -27,7 +25,7 @@ export const actions = {
     const member_id = parseInt(data.get("id"));
     await prisma.member.update({
       where: { id: member_id },
-      data: { projects: { deleteMany: {} } },
+      data: { submissions: { deleteMany: {}, }},
     });
     await prisma.member.delete({ where: { id: member_id } });
   }
