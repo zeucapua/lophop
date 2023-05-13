@@ -7,11 +7,50 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Advisor {
-  id      Int     @id @default(autoincrement())
-  name    String?
-  auth_id String  @unique
-  clubs   Club[]  @relation("AdvisorToClub")
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_in        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  clubs Club[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
 }
 
 model Club {
@@ -21,7 +60,7 @@ model Club {
   secret   String
   members  Member[]
   projects Project[]
-  advisors Advisor[] @relation("AdvisorToClub")
+  users User[] 
 }
 
 model Member {
@@ -49,18 +88,4 @@ model Submission {
   projectId String?
   Project   Project? @relation(fields: [projectId], references: [id])
   members   Member[] @relation("MemberToSubmission")
-}
-
-model Liveroom {
-  id     String  @id @unique
-  fabric String?
-  clubId String?
-  Club   Club?   @relation(fields: [clubId], references: [id])
-}
-
-model Liveroom {
-  id     String  @id @unique @default(cuid())
-  fabric String?
-  Club   Club?   @relation(fields: [clubId], references: [id])
-  clubId String?
 }
