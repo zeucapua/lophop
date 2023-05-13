@@ -12,7 +12,7 @@
     <img alt="Railway" src="https://img.shields.io/badge/-Railway-000?style=flat-square&logo=railway&logoColor=white" />
     <img alt="PostgreSQL" src="https://img.shields.io/badge/-PostgreSQL-43853d?style=flat-square&logo=postgresql&logoColor=white" />
     <img alt="Prisma ORM" src="https://img.shields.io/badge/-PrismaORM-45b8d8?style=flat-square&logo=prisma&logoColor=white" />
-    <img alt="Prisma ORM" src="https://img.shields.io/badge/-Authorizer-007ACC?style=flat-square&logo=authorizer&logoColor=white" />
+    <img alt="Authorizer" src="https://img.shields.io/badge/-Authorizer-007ACC?style=flat-square&logo=authorizer&logoColor=white" />
   </div>
 
 </div>
@@ -31,9 +31,9 @@ management.
 - [x] Advisor authentication 
 - [x] Club CRUD via advisor dashboard
 - [x] Member CRD via club dashboard
-- [ ] Member login to club home
+- [x] Member login to club home
+- [ ] Basic Project CRUD ("quiz", +submissions)
 - [ ] Add built-in code sandbox
-- [ ] Add curriculum management
 - [ ] Multiplayer between members and advisors
 - [ ] Multi-language support
 

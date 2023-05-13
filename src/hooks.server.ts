@@ -1,33 +1,35 @@
-import { redirect } from "@sveltejs/kit";
+import { prisma } from "$lib/prisma";
+
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { SvelteKitAuth } from "@auth/sveltekit";
+import GitHub from "@auth/core/providers/github";
+
+import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from "$env/static/private";
+
 import type { Handle } from "@sveltejs/kit";
 import { sequence } from "@sveltejs/kit/hooks";
 
-export async function authenticate({ event, resolve }) : Handle {
-  let access_token = event.cookies.get("access_token") || null;
-  if (event.url.pathname.startsWith("/authenticate")) {
-    access_token = event.url.searchParams.get("access_token");
-    const expires_in = parseInt(event.url.searchParams.get("expires_in"));
-    event.cookies.set("access_token", access_token, {
-      path: "/",
-      maxAge: expires_in,
-    });
+export const auth = (async (...args) => {
+  const [{ event }] = args;
+  return SvelteKitAuth({
+    adapter: PrismaAdapter(prisma),
+    providers: [
+      GitHub({ clientId: GITHUB_CLIENT_ID, clientSecret: GITHUB_CLIENT_SECRET }),
+    ],
+    callbacks: {
+      async session({ user, session }) {
+        session.user = {
+          id: user.id,
+          name: user.name,
+          image: user.image,
+        };
 
-    throw redirect(308, "/advisor/dashboard");
-  }
-  else if (event.url.pathname === ("/advisor")) {
-    if (access_token) { 
-      console.log("advisor auth", { access_token });
-      throw redirect(307, "/dashboard"); 
+        event.locals.session = session;
+        return session;
+      }
     }
-  }
-  else if (event.url.pathname.startsWith("/advisor/dashboard")) {
-    if (!access_token) { 
-      console.log("dashboard auth", { access_token });
-      throw redirect(307, "/advisor"); 
-    }
-  }
+  })(...args);
+}) satisfies Handle;
 
-  return resolve(event);
-}
 
-export const handle = sequence(authenticate);
+export const handle = sequence(auth);

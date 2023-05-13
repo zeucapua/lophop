@@ -15,14 +15,13 @@ model Advisor {
 }
 
 model Club {
-  id       String     @id @unique @default(cuid())
+  id       String    @id @unique @default(cuid())
   name     String
-  slug     String     @unique
+  slug     String    @unique
   secret   String
-  Liveroom Liveroom[]
   members  Member[]
   projects Project[]
-  advisors Advisor[]  @relation("AdvisorToClub")
+  advisors Advisor[] @relation("AdvisorToClub")
 }
 
 model Member {
@@ -42,7 +41,6 @@ model Project {
   clubSlug    String
   club        Club         @relation(fields: [clubSlug], references: [slug])
   submissions Submission[]
-  clubId      String
 }
 
 model Submission {
