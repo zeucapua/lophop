@@ -9,8 +9,8 @@
 <main class="flex flex-col w-full h-full min-w-screen min-h-screen bg-base-100 p-8 lg:p-16 gap-8">
   
   <!-- Navbar -->
-  <section class="navbar bg-base-100 rounded-lg px-8 items-center">
-    <div class="flex-1">
+  <section class="navbar border-2 border-base-200 shadow-xl bg-base-100 rounded-lg items-center">
+    <div class="flex-1 p-4">
       <a href="/">
         <h1 class="btn btn-ghost font-poppins normal-case text-primary text-5xl font-bold">
           Lophop
@@ -18,7 +18,7 @@
       </a>
     </div>
 
-    <div class="flex-none">
+    <div class="flex-none px-4">
       {#if !user}
         <button on:click={() => signIn("github")} class="font-quicksand btn btn-secondary">
           Log in with Github 
