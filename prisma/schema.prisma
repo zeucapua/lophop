@@ -13,15 +13,14 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_in        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -42,7 +41,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  clubs         Club[]
+  clubs         Club[]    @relation("ClubToUser")
 }
 
 model VerificationToken {
@@ -60,7 +59,7 @@ model Club {
   secret   String
   members  Member[]
   projects Project[]
-  users    User[]
+  users    User[]    @relation("ClubToUser")
 }
 
 model Member {
