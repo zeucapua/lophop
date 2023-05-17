@@ -1,5 +1,6 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
+  import { invalidateAll } from "$app/navigation";
 
   export let data; 
   export let form;
@@ -9,11 +10,12 @@
 
   let modal_action : string;
 
-  $: final_slug = setFinalSlug(modal_action);
   function setFinalSlug(action : string) {
     if (action === "join") { return form?.slug }
     else if (action === "create") { return form?.slug_variation ?? form?.slug; }
   }
+  
+  $: final_slug = setFinalSlug(modal_action);
 </script>
 
 <h2 class="text-center text-5xl my-8 font-poppins font-bold text-primary">Dashboard</h2>
@@ -33,6 +35,10 @@
           <h2 class="card-title font-poppins">{club.name}</h2>
           <h3 class="text-secondary font-quicksand font-bold">{club.slug}</h3>
           <div class="card-actions justify-end">
+            <form method="POST" action="?/deleteClub">
+              <input name="slug" type="hidden" value={club.slug} />
+              <button class="btn btn-outline btn-error font-quicksand">Delete</button>
+            </form>
             <a href={`/dashboard/${club.slug}`}>
               <button class="btn btn-accent font-quicksand">Details</button>
             </a>
@@ -139,7 +145,7 @@
           </div>
         </div>
 
-        <button data-sveltekit-replacestate class="btn btn-primary" formaction={`?/${modal_action}Club`}>
+        <button class="btn btn-primary" formaction={`?/${modal_action}Club`}>
           {modal_action}
         </button>
       {/if}

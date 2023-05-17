@@ -1,25 +1,24 @@
 import { prisma } from "$lib/prisma";
 
 export const actions = {
-  register: async ({ request }) => {
+  createMember: async ({ params, request }) => {
     const data = await request.formData();
     const name = data.get("name");
-    const password = data.get("password");
-    const club_slug = data.get("club_slug");
+    const club_slug = params.club;
 
     const avatar = Math.floor(Math.random() * 50) + 1;
 
     await prisma.member.create({
       data: { 
         name,
-        password,
         avatar,
-        Club: {
+        club: {
           connect: { slug: club_slug }
         }
       },
     });
   },
+
   deleteMember: async ({ request }) => {
     const data = await request.formData();
     const member_id = parseInt(data.get("id"));

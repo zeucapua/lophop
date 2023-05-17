@@ -102,6 +102,12 @@ export const actions = {
   deleteClub: async ({ request }) => {
     const club_slug = await request.formData().then((f) => f.get("slug"));
 
+    await prisma.club.update({ 
+      where: { slug: club_slug },
+      data: { members: { deleteMany: {} }} 
+    });
+
     await prisma.club.delete({ where: { slug: club_slug }});
+
   }
 }

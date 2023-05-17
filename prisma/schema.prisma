@@ -65,11 +65,11 @@ model Club {
 model Member {
   id          Int          @id @default(autoincrement())
   name        String
-  password    String
   clubId      String
   avatar      Int
-  Club        Club         @relation(fields: [clubId], references: [id])
-  submissions Submission[] @relation("MemberToSubmission")
+  club        Club         @relation(fields: [clubId], references: [id])
+  submissions Submission[]
+  attendance  DateTime[]
 }
 
 model Project {
@@ -84,7 +84,9 @@ model Project {
 model Submission {
   id        String   @id @default(cuid())
   content   String
+  createdAt DateTime @default(now())
   projectId String?
   Project   Project? @relation(fields: [projectId], references: [id])
-  members   Member[] @relation("MemberToSubmission")
+  member    Member   @relation(fields: [memberId], references: [id])
+  memberId  Int
 }
