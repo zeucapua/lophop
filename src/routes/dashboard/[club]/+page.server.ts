@@ -27,5 +27,20 @@ export const actions = {
       data: { submissions: { deleteMany: {}, }},
     });
     await prisma.member.delete({ where: { id: member_id } });
+  },
+
+  createProject: async ({ params, request }) => {
+    const data = await request.formData();
+    const title = data.get("title");
+    const club_slug = params.club;
+
+    await prisma.project.create({
+      data: {
+        title,
+        club: {
+          connect: { slug: club_slug }
+        }
+      }
+    });
   }
 }

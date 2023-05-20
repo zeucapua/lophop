@@ -75,7 +75,7 @@ model Member {
 model Project {
   id          String       @id @default(cuid())
   title       String
-  content     String
+  content     String?
   clubSlug    String
   club        Club         @relation(fields: [clubSlug], references: [slug])
   submissions Submission[]
