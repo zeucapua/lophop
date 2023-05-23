@@ -1,11 +1,9 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
-  import { invalidateAll } from "$app/navigation";
 
   export let data; 
   export let form;
 
-  let user = data.user;
   let clubs = data.clubs;
 
   let modal_action : string;
@@ -58,7 +56,10 @@
     <label for="create-modal" class="btn btn-sm btn-circle absolute right-2 top-2">
       ✕
     </label>
-    <h3 class="font-bold text-lg">Create a New Club</h3>
+    <div>
+      <h3 class="font-bold text-lg">Create a New Club</h3>
+      <h5 class="text-sm">Reload if just created/joined a club.</h5>
+    </div>
     <div>
       <label class="label">
         <span class="label-text">What's the Club called?</span>
@@ -145,9 +146,11 @@
           </div>
         </div>
 
-        <button class="btn btn-primary" formaction={`?/${modal_action}Club`}>
-          {modal_action}
-        </button>
+        <div class="modal-action">
+          <button class="btn btn-primary" formaction={`?/${modal_action}Club`}>
+            {modal_action}
+          </button>
+        </div>
       {/if}
 
     {/if}

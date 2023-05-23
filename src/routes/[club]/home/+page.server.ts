@@ -2,8 +2,8 @@ import { redirect } from "@sveltejs/kit";
 
 export const actions = {
   logout: async ({ cookies }) => {
-    cookies.delete("access");
-    cookies.delete("logged_in");
+    await cookies.delete("access", { path: "/" });
+    await cookies.delete("logged_in", { path: "/" });
 
     throw redirect(303, "/");
   }

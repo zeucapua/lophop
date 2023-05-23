@@ -81,9 +81,11 @@ model Project {
   submissions Submission[]
 }
 
+// currently only links available
 model Submission {
   id        String   @id @default(cuid())
-  content   String
+  title     String
+  link      String
   createdAt DateTime @default(now())
   projectId String?
   Project   Project? @relation(fields: [projectId], references: [id])

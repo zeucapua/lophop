@@ -19,14 +19,57 @@ export const actions = {
     });
   },
 
-  deleteMember: async ({ request }) => {
+  deleteMember: async ({ params, request }) => {
     const data = await request.formData();
     const member_id = parseInt(data.get("id"));
-    await prisma.member.update({
-      where: { id: member_id },
-      data: { submissions: { deleteMany: {}, }},
+    const club_slug = params.club;
+
+    await prisma.club.update({
+      where: { slug: club_slug },
+      data: {
+        members: {
+          update: {
+            where: { id: member_id },
+            data: { submissions: { deleteMany: {} }}
+          }
+        }
+      }
     });
-    await prisma.member.delete({ where: { id: member_id } });
+
+    await prisma.club.update({
+      where: { slug: club_slug },
+      data: {
+        members: {
+          delete: { id: member_id }
+        }
+      }
+    });
+  },
+
+  toggleAttendance: async ({ params, request }) => {
+    const data = await request.formData();
+    const check = data.get("check");
+    const member_id = parseInt(data.get("id"));
+    const club_slug = params.club;
+    
+    console.log({ check });
+    
+    if (check) {
+      const member = await prisma.member.update({
+        where: { 
+          id: member_id,
+        },
+        data: {
+          attendance: {
+            push: new Date().toISOString()
+          }
+        }
+      });
+      console.log({ member }); 
+    }
+    else {
+      console.log("uncheck");
+    }
   },
 
   createProject: async ({ params, request }) => {

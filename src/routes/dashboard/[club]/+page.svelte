@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { enhance } from "$app/forms";
   export let data;
   const club = data.club;
   const members = club.members;
@@ -78,9 +79,7 @@
 
           <tr>
             <th>
-              <label>
-                <input type="checkbox" class="checkbox" />
-              </label>
+              <input name="check" type="checkbox" class="checkbox" />
             </th>
             <td>
               <div class="flex items-center space-x-3">

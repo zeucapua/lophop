@@ -7,31 +7,31 @@
 </script>
 
 <section class="flex flex-col gap-8 w-full h-full justify-center">
-  <h1 class="text-6xl font-quicksand font-bold text-center">What's the Secret?</h1>
+  <h1 class="text-6xl font-poppins text-white text-center">What's the Secret?</h1>
   <form method="POST" class="flex flex-col gap-4 w-full items-center justify-center">
     {#if data.skip || form?.logged_in}
       {#if members}
         <div class="grid grid-cols-3 gap-4 w-full max-w-xl">
           {#each members as member}
-            <label>
-              <li class="aspect-square flex flex-col gap-4 border-2 rounded-md p-4 w-full max-h-full">
-                <img 
+            <div class="card card-compact border border-neutral  p-4">
+              <figure>
+                <img
                   src={`/abstract-characters/abstract-character-${member.avatar}.svg`}
-                  alt={`${member.name} avatar`}
+                  alt={`${member.name} Avatar`}
                 />
-                <div class="flex flex-row justify-between gap-8">
-                  <p>{member.name}</p>
-                  <input type="radio" bind:group={member_id} value={member.id} />
-                </div>
-              </li>
-            </label>
+              </figure>
+              <div class="card-body flex flex-row items-center justify-between">
+                <input type="radio" class="radio-xs" bind:group={member_id} value={member.id} />
+                <h2 class="card-title">{member.name}</h2>
+              </div>
+            </div>
           {/each}
           <li class="aspect-square flex flex-col border-2 rounded-md p-4 w-full h-full max-h-full">
             <p class="font-poppins text-center">Can't find your account? Talk to your advisor for help logging in.</p>
           </li>
         </div>
         <input name="member_id" type="hidden" value={member_id} />
-        <button formaction="?/enter" class="font-poppins border-2 rounded-lg px-4 py-2">Enter</button>
+        <button formaction="?/enter" class="btn btn-primary">Enter</button>
       {:else}
         <p>There are no members in this club! Talk to your advisor for help logging in.</p>
       {/if}
@@ -40,8 +40,8 @@
         <p>Wrong secret. Try again!</p> 
       {/if}
       <div class="flex flex-row gap-4">
-        <input name="secret" type="password" class="border-2 rounded-lg px-4 py-2"/>
-        <button formaction="?/whisper" class="font-poppins border-2 rounded-lg px-4 py-2">Whisper</button>
+        <input name="secret" type="password" class="input input-bordered input-secondary"/>
+        <button formaction="?/whisper" class="font-quicksand btn btn-primary">Enter</button>
       </div>
     {/if}
   </form>
