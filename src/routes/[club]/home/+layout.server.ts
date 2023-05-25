@@ -1,5 +1,5 @@
 import { prisma } from "$lib/prisma";
-import { redirect } from "@sveltejs/kit";
+import { error, redirect } from "@sveltejs/kit";
 
 export async function load({ cookies, params }) {
   const club_slug = params.club;
@@ -15,6 +15,7 @@ export async function load({ cookies, params }) {
   const club = await prisma.club.findUnique({
     where: { slug: club_slug },
     select: {
+      slug: true,
       name: true,
       members: true,
       users: true,
@@ -25,11 +26,16 @@ export async function load({ cookies, params }) {
   const member = await prisma.member.findUnique({
     where: { id: parseInt(member_id) },
     select: {
+      id: true,
       name: true,
       avatar: true,
       submissions: true,
     }
   });
+
+  if (!club || !member) {
+    throw error(500, "Error in fetching");
+  }
 
 
   return { club, member }

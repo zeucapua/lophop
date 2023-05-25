@@ -2,6 +2,8 @@
   export let data;
   const { club, member } = data;
   const projects = club.projects;
+
+  console.log({ club });
 </script>
 
 <main class="flex flex-col w-full gap-8">
@@ -12,7 +14,7 @@
         <div class="dropdown dropdown-end">
           <label tabindex="-1" class="btn btn-ghost btn-circle avatar">
             <img 
-              src={`/abstract-characters/abstract-character-${member.avatar}.svg`} 
+              src={`/abstract-characters/abstract-character-${member?.avatar}.svg`} 
               alt={``} class="w-12 rounded-full" 
             />
           </label>
@@ -39,7 +41,9 @@
           <h3 class="font-poppins card-title">{project.title}</h3>
           <p class="font-quicksand text-ellipsis">{project.content}</p>
           <div class="card-actions justify-end">
-            <button class="btn btn-secondary">More</button>
+            <a href={`/${club.slug}/home/p/${project.id}`}>
+              <button class="btn btn-secondary">More</button>
+            </a>
           </div>
         </div>
       {/each}

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import ScratchEmbed from '$lib/ScratchEmbed.svelte';
   export let data;
 
   const club = data.club;
@@ -33,10 +34,18 @@
   />
 </form>
 
-{#if submissions.length > 0}
-  {#each submissions as submission}
-    <p>{submission.title}</p>
-  {/each}
-{:else}
-  <p>There are no submissions yet</p>
-{/if}
+<section>
+  <div class="flex flex-row justify-between items-center">
+    <h3 class="text-3xl font-poppins font-bold text-primary">Submissions</h3>
+  </div>
+  <div class="divider" />
+  {#if submissions.length > 0}
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full p-4">
+      {#each submissions as submission}
+        <ScratchEmbed {submission} />
+      {/each}
+    </div>
+  {:else}
+    <p class="font-quicksand font-bold text-center">No one has submitted a project yet. Be the first!</p> 
+  {/if}
+</section>

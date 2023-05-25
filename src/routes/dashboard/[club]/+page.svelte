@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { enhance } from "$app/forms";
   export let data;
   const club = data.club;
   const members = club.members;
@@ -7,8 +6,8 @@
 </script>
 
 <div>
-<a href="/dashboard" class="btn btn-accent w-fit">{"<- Dashboard"}</a>
-<h2 class="text-center text-5xl my-8 font-poppins font-bold text-primary">Club {club.name}</h2>
+  <a href="/dashboard" class="btn btn-accent w-fit">{"<- Dashboard"}</a>
+  <h2 class="text-center text-5xl my-8 font-poppins font-bold text-primary">Club {club.name}</h2>
 </div>
 
 <section class="flex flex-col w-full mx-auto">
@@ -26,7 +25,7 @@
         <div class="card w-96 bg-base-100 shadow-xl">
           <div class="card-body">
             <h2 class="card-title">{project.title}</h2>
-            <p class="text-ellipsis text-base-content/80">{project.content ?? "No description yet"}</p>
+            <p class="truncate text-base-content/80">{project.content ?? "No description yet"}</p>
             <div class="card-actions justify-end">
               <a href={`/dashboard/${club.slug}/p/${project.id}`} class="btn btn-primary">
                 Manage

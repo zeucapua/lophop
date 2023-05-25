@@ -46,6 +46,7 @@ export const actions = {
     });
   },
 
+  // TODO: implement fix to DateTime[]
   toggleAttendance: async ({ params, request }) => {
     const data = await request.formData();
     const check = data.get("check");

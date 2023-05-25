@@ -6,7 +6,7 @@ export async function load({ params }) {
 
   const response = await prisma.project.findUnique({
     where: { id },
-    include: { submissions: true }
+    include: { submissions: { include: { member: true }}}
   });
 
   if (!response) { throw error(404, "Project not found"); }

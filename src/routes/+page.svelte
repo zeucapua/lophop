@@ -1,6 +1,4 @@
 <script lang="ts">
-  export let form;
-
   let club_slug : string;
 </script>
 
