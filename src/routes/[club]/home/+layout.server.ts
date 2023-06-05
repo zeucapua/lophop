@@ -28,7 +28,6 @@ export async function load({ cookies, params }) {
     select: {
       id: true,
       name: true,
-      avatar: true,
       submissions: true,
     }
   });

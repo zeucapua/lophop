@@ -16,7 +16,7 @@
             <div class="card card-compact border border-neutral  p-4">
               <figure>
                 <img
-                  src={`/abstract-characters/abstract-character-${member.avatar}.svg`}
+                  src={`https://source.boringavatars.com/beam/64/${member.name}?colors=e779c1,58c7f3,22155,1a103c,f3cc30`}
                   alt={`${member.name} Avatar`}
                 />
               </figure>

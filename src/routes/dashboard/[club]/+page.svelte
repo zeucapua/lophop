@@ -22,7 +22,7 @@
     {#if projects.length > 0}
       {#each projects as project}
 
-        <div class="card w-96 bg-base-100 shadow-xl">
+        <div class="card w-96 bg-neutral shadow-xl">
           <div class="card-body">
             <h2 class="card-title">{project.title}</h2>
             <p class="truncate text-base-content/80">{project.content ?? "No description yet"}</p>
@@ -58,7 +58,7 @@
   <div class="divider" />
 
   <div class="overflow-x-auto w-full">
-    <table class="table table-zebra w-full">
+    <table class="table bg-neutral w-full">
       <thead>
         <tr>
           <th>
@@ -84,7 +84,10 @@
               <div class="flex items-center space-x-3">
                 <div class="avatar">
                   <div class="mask mask-squircle w-12 h-12">
-                    <img src={`/abstract-characters/abstract-character-${member.avatar}.svg`} alt={`Member Avatar - ${member.name}`}/>
+                    <img 
+                      src={`https://source.boringavatars.com/beam/64/${member.name}?colors=e779c1,58c7f3,22155,1a103c,f3cc30`} 
+                      alt={`Member Avatar - ${member.name}`}
+                    />
                   </div>
                 </div>
                 <div>

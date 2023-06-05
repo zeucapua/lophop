@@ -11,5 +11,8 @@ module.exports = {
       }
     }
   },
+  daisyui: {
+    themes: ["synthwave"],
+  },
   plugins: [require("daisyui")],
 }

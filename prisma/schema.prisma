@@ -66,7 +66,6 @@ model Member {
   id          Int          @id @default(autoincrement())
   name        String
   clubId      String
-  avatar      Int
   club        Club         @relation(fields: [clubId], references: [id])
   submissions Submission[]
   attendance  DateTime[]

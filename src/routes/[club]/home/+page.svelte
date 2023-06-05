@@ -14,7 +14,7 @@
         <div class="dropdown dropdown-end">
           <label tabindex="-1" class="btn btn-ghost btn-circle avatar">
             <img 
-              src={`/abstract-characters/abstract-character-${member?.avatar}.svg`} 
+              src={`https://source.boringavatars.com/beam/64/${member.name}?colors=e779c1,58c7f3,f3cc30,22155,1a103c`} 
               alt={``} class="w-12 rounded-full" 
             />
           </label>
@@ -36,17 +36,19 @@
     </div>
     <div class="divider" />
     {#if projects.length > 0}
-      {#each projects as project}
-        <div class="card p-8 w-fit shadow-xl">
-          <h3 class="font-poppins card-title">{project.title}</h3>
-          <p class="font-quicksand text-ellipsis">{project.content}</p>
-          <div class="card-actions justify-end">
-            <a href={`/${club.slug}/home/p/${project.id}`}>
-              <button class="btn btn-secondary">More</button>
-            </a>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {#each projects as project}
+          <div class="card p-8 bg-neutral w-fit shadow-xl">
+            <h3 class="font-poppins card-title">{project.title}</h3>
+            <p class="font-quicksand text-ellipsis">{project.content}</p>
+            <div class="card-actions justify-end">
+              <a href={`/${club.slug}/home/p/${project.id}`}>
+                <button class="btn btn-secondary">More</button>
+              </a>
+            </div>
           </div>
-        </div>
-      {/each}
+        {/each}
+      </div>
     {:else}
       <p>There are no projects yet. Wait for your advisor to make one!</p>
     {/if}

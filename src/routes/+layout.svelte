@@ -1,15 +1,18 @@
 <script>
   import "../app.css";
+  import { page } from "$app/stores";
   import { signIn, signOut } from "@auth/sveltekit/client";
 
   export let data;
   const user = data.session?.user;
+
+  console.log($page);
 </script>
 
 <main class="flex flex-col w-full h-full min-w-screen min-h-screen bg-base-100 p-8 lg:p-16 gap-8">
   
   <!-- Navbar -->
-  <section class="navbar border-2 border-base-200 shadow-xl bg-base-100 rounded-lg items-center">
+  <section class="navbar shadow-xl bg-neutral rounded-lg items-center">
     <div class="flex-1 p-4">
       <a href="/">
         <h1 class="btn btn-ghost font-poppins normal-case text-primary text-5xl font-bold">
