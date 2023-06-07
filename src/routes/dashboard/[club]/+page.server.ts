@@ -46,33 +46,6 @@ export const actions = {
     });
   },
 
-  // TODO: implement fix to DateTime[]
-  toggleAttendance: async ({ params, request }) => {
-    const data = await request.formData();
-    const check = data.get("check");
-    const member_id = parseInt(data.get("id"));
-    const club_slug = params.club;
-    
-    console.log({ check });
-    
-    if (check) {
-      const member = await prisma.member.update({
-        where: { 
-          id: member_id,
-        },
-        data: {
-          attendance: {
-            push: new Date().toISOString()
-          }
-        }
-      });
-      console.log({ member }); 
-    }
-    else {
-      console.log("uncheck");
-    }
-  },
-
   createProject: async ({ params, request }) => {
     const data = await request.formData();
     const title = data.get("title");

@@ -1,12 +1,9 @@
 <script>
   import "../app.css";
-  import { page } from "$app/stores";
   import { signIn, signOut } from "@auth/sveltekit/client";
 
   export let data;
   const user = data.session?.user;
-
-  console.log($page);
 </script>
 
 <main class="flex flex-col w-full h-full min-w-screen min-h-screen bg-base-100 p-8 lg:p-16 gap-8">

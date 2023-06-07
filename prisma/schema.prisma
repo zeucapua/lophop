@@ -63,16 +63,16 @@ model Club {
 }
 
 model Member {
-  id          Int          @id @default(autoincrement())
+  id          Int          @id @unique @default(autoincrement())
   name        String
   clubId      String
   club        Club         @relation(fields: [clubId], references: [id])
   submissions Submission[]
-  attendance  DateTime[]
+  attendance  String[]
 }
 
 model Project {
-  id          String       @id @default(cuid())
+  id          String       @id @unique @default(cuid())
   title       String
   content     String?
   clubSlug    String
@@ -82,7 +82,7 @@ model Project {
 
 // currently only links available
 model Submission {
-  id        String   @id @default(cuid())
+  id        String   @id @unique @default(cuid())
   title     String
   link      String
   createdAt DateTime @default(now())

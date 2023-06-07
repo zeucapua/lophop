@@ -1,4 +1,6 @@
 <script lang="ts">
+  import AttendanceCheckbox from "./AttendanceCheckbox.svelte";
+
   export let data;
   const club = data.club;
   const members = club.members;
@@ -61,15 +63,10 @@
     <table class="table bg-neutral w-full">
       <thead>
         <tr>
-          <th>
-            <label>
-              <input type="checkbox" class="checkbox" />
-            </label>
-          </th>
+          <th>Attendance</th>
           <th>Name</th>
           <th>Latest Submission</th>
           <th>Scratch Password</th>
-          <th></th>
         </tr>
       </thead>
 
@@ -78,7 +75,7 @@
 
           <tr>
             <th>
-              <input name="check" type="checkbox" class="checkbox" />
+              <AttendanceCheckbox {member} club_slug={club.slug} />
             </th>
             <td>
               <div class="flex items-center space-x-3">
