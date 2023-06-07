@@ -19,6 +19,30 @@ export const actions = {
     });
   },
 
+  createMembers: async ({ params, request }) => {
+    const data = await request.formData();
+    const file = data.get("file");
+    const club_slug = params.club;
+    const file_text = await file.text();
+
+    const names = file_text.split("\n").filter(name => name.trim() != "");
+    const members = [];
+    for (const n of names) {
+      members.push({ name: n });
+    }
+    
+    await prisma.club.update({
+      where: { slug: club_slug },
+      data: {
+        members: {
+          createMany: {
+            data: members,
+          }
+        }
+      }
+    });
+  },
+
   deleteMember: async ({ params, request }) => {
     const data = await request.formData();
     const member_id = parseInt(data.get("id"));

@@ -8,14 +8,14 @@
 </script>
 
 <div>
-  <a href="/dashboard" class="btn btn-accent w-fit">{"<- Dashboard"}</a>
+  <a href="/dashboard" class="font-quicksand btn btn-accent w-fit">Dashboard</a>
   <h2 class="text-center text-5xl my-8 font-poppins font-bold text-primary">Club {club.name}</h2>
 </div>
 
 <section class="flex flex-col w-full mx-auto">
   <div class="flex flex-row justify-between items-center">
     <h3 class="text-3xl font-poppins font-bold text-primary">Projects</h3>
-    <label for="project-modal" class="btn btn-secondary font-quicksand font-bold">+ Create</label>
+    <label for="project-modal" class="btn btn-accent font-quicksand font-bold">+ Create Project</label>
   </div>
   
   <div class="divider" />
@@ -29,7 +29,7 @@
             <h2 class="card-title">{project.title}</h2>
             <p class="truncate text-base-content/80">{project.content ?? "No description yet"}</p>
             <div class="card-actions justify-end">
-              <a href={`/dashboard/${club.slug}/p/${project.id}`} class="btn btn-primary">
+              <a href={`/dashboard/${club.slug}/p/${project.id}`} class="btn btn-secondary">
                 Manage
               </a>
             </div>
@@ -43,7 +43,7 @@
           <h2 class="card-title">You don't have any projects, yet...</h2>
           <p>Create a new project using the button below!</p>
           <div class="card-actions justify-end">
-            <label for="project-modal" class="btn btn-secondary font-quicksand font-bold">+ Create</label>
+            <label for="project-modal" class="btn btn-accent font-quicksand font-bold">+ Create Project</label>
           </div>
         </div>
       </div>
@@ -54,7 +54,7 @@
 <section class="flex flex-col w-full mx-auto">
   <div class="flex flex-row justify-between items-center">
     <h3 class="text-3xl font-poppins font-bold text-primary">Members</h3>
-    <label for="member-modal" class="btn btn-secondary font-quicksand font-bold">+ Add New</label>
+    <label for="member-modal" class="btn btn-accent font-quicksand font-bold">+ Add Members</label>
   </div>
 
   <div class="divider" />
@@ -143,21 +143,45 @@
 
 <input type="checkbox" id="member-modal" class="modal-toggle" />
 <div class="modal modal-bottom sm:modal-middle">
-  <form method="POST" action="?/createMember" class="form-control modal-box relative gap-4">
+  <div class="modal-box relative gap-4">
     <label for="member-modal" class="btn btn-sm btn-circle absolute right-2 top-2">
       ✕
     </label>
-    <h3 class="font-bold text-lg">Create a New Member</h3>
-    <div>
-      <label class="label">
-        <span class="label-text">Name</span> 
-      </label>
-      <input name="name" type="text" class="w-full input input-bordered" />
-    </div>
-    <div class="modal-action">
-      <label for="member-modal">
-        <button class="btn btn-accent">Done</button>
-      </label>
-    </div>
-  </form>
+    <form method="POST" action="?/createMember" class="form-control gap-2">
+      <h3 class="font-bold text-lg">Add One Member</h3>
+      <div>
+        <label class="label">
+          <span class="label-text">Name</span> 
+        </label>
+        <input name="name" type="text" class="w-full input input-bordered" />
+      </div>
+      <div class="modal-action">
+        <label for="member-modal">
+          <button class="btn btn-accent">Create</button>
+        </label>
+      </div>
+    </form>
+    <div class="divider">OR</div>
+    <form method="POST" action="?/createMembers" enctype="multipart/form-data" class="form-control align-start gap-2">
+      <h3 class="font-bold text-lg">Add Multiple Members</h3>
+      <p>You can add multiple members using a text or CSV file with each name on a new line. See an example below:</p>
+      <samp class="border rounded-lg p-4 bg-neutral">
+        Jane Doe<br />
+        Dan Olson<br />
+        Barry<br />
+        Blinky Ghost<br />
+      </samp>
+      <div>
+        <label class="label">
+          <span class="label-text">Import CSV/TXT File</span>
+        </label>
+      </div>
+      <input name="file" type="file" class="file-input file-input-bordered w-full" />
+      <div class="modal-action">
+        <label for="member-modal">
+          <button class="btn btn-accent">Upload</button>
+        </label>
+      </div>
+    </form>
+  </div>
 </div>

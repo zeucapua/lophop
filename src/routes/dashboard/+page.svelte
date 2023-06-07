@@ -21,14 +21,14 @@
 <section class="flex flex-col w-full mx-auto">
   <div class="flex flex-row justify-between items-center">
     <h3 class="text-3xl font-poppins font-bold text-primary">Clubs</h3>
-    <label for="create-modal" class="btn btn-secondary font-quicksand font-bold">New Club</label>
+    <label for="create-modal" class="btn btn-accent font-quicksand font-bold">New Club</label>
   </div>
 
   <div class="divider" />
 
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
     {#each clubs as club}
-      <div class="card border border-neutral w-full bg-base-100 shadow-xl">
+      <div class="card w-full bg-neutral shadow-xl">
         <div class="card-body">
           <h2 class="card-title font-poppins">{club.name}</h2>
           <h3 class="text-secondary font-quicksand font-bold">{club.slug}</h3>
@@ -38,7 +38,7 @@
               <button class="btn btn-outline btn-error font-quicksand">Delete</button>
             </form>
             <a href={`/dashboard/${club.slug}`}>
-              <button class="btn btn-accent font-quicksand">Details</button>
+              <button class="btn btn-secondary font-quicksand">Details</button>
             </a>
           </div>
         </div>

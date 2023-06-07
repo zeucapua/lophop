@@ -1,15 +1,21 @@
 <script>
   import "../app.css";
+  import { goto } from "$app/navigation";
   import { signIn, signOut } from "@auth/sveltekit/client";
 
   export let data;
   const user = data.session?.user;
+
+  function logout() {
+    signOut();
+    goto("/");
+  }
 </script>
 
-<main class="flex flex-col w-full h-full min-w-screen min-h-screen bg-base-100 p-8 lg:p-16 gap-8">
+<main class="space-y-16 flex flex-col w-full h-full min-w-screen min-h-screen bg-base-100 p-8 lg:p-16 gap-8">
   
   <!-- Navbar -->
-  <section class="navbar shadow-xl bg-neutral rounded-lg items-center">
+  <section class="fixed inset-x-0 top-0 navbar shadow-xl bg-neutral rounded-lg items-center">
     <div class="flex-1 p-4">
       <a href="/">
         <h1 class="btn btn-ghost font-poppins normal-case text-primary text-5xl font-bold">
@@ -30,14 +36,16 @@
           </label>
           <ul tabindex="-1" class="dropdown-content menu p-2 shadow-xl bg-base-100 rounded-box border-2 border-base-200 w-fit">
             <li><a href="/dashboard">Dashboard</a></li>
-            <li class="text-error"><button on:click={() => signOut()}>Logout</button></li>
+            <li class="text-error"><button on:click={logout}>Logout</button></li>
           </ul>
         </div>
       {/if}
     </div>
   </section>
 
-  <!-- children +page.svelte -->
-  <slot />
+  <!-- children +toppage.svelte -->
+  <div class="flex flex-col gap-8">
+    <slot />
+  </div>
 
 </main>
