@@ -69,6 +69,15 @@ model Member {
   club        Club         @relation(fields: [clubId], references: [id])
   submissions Submission[]
   attendance  String[]
+  scratch     Details?
+}
+
+model Details {
+  id       Int    @id @unique @default(autoincrement())
+  username String
+  password String
+  member   Member @relation(fields: [memberId], references: [id])
+  memberId Int    @unique
 }
 
 model Project {

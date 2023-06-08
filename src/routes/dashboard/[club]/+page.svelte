@@ -1,10 +1,13 @@
 <script lang="ts">
+  import type { Member } from "@prisma/client";
   import AttendanceCheckbox from "./AttendanceCheckbox.svelte";
 
   export let data;
   const club = data.club;
   const members = club.members;
   const projects = club.projects;
+
+  let editing_member : Member;
 </script>
 
 <div>
@@ -38,7 +41,7 @@
 
       {/each}
     {:else}
-      <div class="card w-96 bg-base-300 shadow-xl">
+      <div class="card w-96 bg-neutral shadow-xl">
         <div class="card-body">
           <h2 class="card-title">You don't have any projects, yet...</h2>
           <p>Create a new project using the button below!</p>
@@ -103,9 +106,13 @@
             <td>Purple</td>
             <th>
               <div class="flex flex-row gap-4">
+                <button on:click={() => editing_member = member} class="btn btn-outline btn-secondary btn-xs"> 
+                  <label for="edit-modal" class="cursor-pointer">
+                    Edit
+                  </label>
+                </button>
                 <form method="POST">
                   <input name="id" type="hidden" value={member.id} />
-                  <button class="btn btn-outline btn-info btn-xs">Edit</button>
                   <button formaction="?/deleteMember" class="btn btn-outline btn-error btn-xs">Delete</button>
                 </form>
               </div>
@@ -148,7 +155,7 @@
       ✕
     </label>
     <form method="POST" action="?/createMember" class="form-control gap-2">
-      <h3 class="font-bold text-lg">Add One Member</h3>
+      <h3 class="font-bold text-lg font-poppins">Add One Member</h3>
       <div>
         <label class="label">
           <span class="label-text">Name</span> 
@@ -163,7 +170,7 @@
     </form>
     <div class="divider">OR</div>
     <form method="POST" action="?/createMembers" enctype="multipart/form-data" class="form-control align-start gap-2">
-      <h3 class="font-bold text-lg">Add Multiple Members</h3>
+      <h3 class="font-bold text-lg font-poppins">Add Multiple Members</h3>
       <p>You can add multiple members using a text or CSV file with each name on a new line. See an example below:</p>
       <samp class="border rounded-lg p-4 bg-neutral">
         Jane Doe<br />
@@ -180,6 +187,32 @@
       <div class="modal-action">
         <label for="member-modal">
           <button class="btn btn-accent">Upload</button>
+        </label>
+      </div>
+    </form>
+  </div>
+</div>
+
+<input type="checkbox" id="edit-modal" class="modal-toggle" />
+<div class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box relative gap-4">
+    <label for="edit-modal" class="btn btn-sm btn-circle absolute right-2 top-2">
+      ✕
+    </label>
+    <form method="POST" action="?/updateMember" class="form-control align-start">
+      <h3 class="font-bold text-lg font-poppins">Edit Member</h3>
+      <label class="label">
+        <span class="label-text">Member Name</span>
+      </label>
+      <input 
+        name="name" type="text" value={editing_member?.name} 
+        class="input input-bordered input-primary" 
+      />
+      <input name="club_slug" type="hidden" value={club.slug} />
+      <input name="id" type="hidden" value={editing_member?.id} />
+      <div class="modal-action">
+        <label for="edit-modal">
+          <button class="btn btn-accent">Confirm</button>
         </label>
       </div>
     </form>
