@@ -92,7 +92,13 @@
                 </div>
                 <div>
                   <div class="font-bold">{member.name}</div>
-                  <div class="text-sm opacity-50">username</div>
+                  <div class="text-sm opacity-50">
+                    {#if member.scratch}
+                      {member.scratch.username}
+                    {:else}
+                      No username set
+                    {/if}
+                  </div>
                 </div>
               </div>
             </td>
