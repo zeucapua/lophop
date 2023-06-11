@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Member } from "@prisma/client";
+  import { generateUsername } from "unique-username-generator";
   import AttendanceCheckbox from "./AttendanceCheckbox.svelte";
 
   export let data;
@@ -8,6 +9,24 @@
   const projects = club.projects;
 
   let editing_member : Member;
+  let blob_url : string;
+
+  function generatePlaceholders() {
+    username_placeholder = generateUsername();
+    password_placeholder = generateUsername();
+  }
+
+  function generateScratchAccounts() {
+    let content : string[] = [];
+    for (const m of members) {
+      content.push(`${m.scratch?.username || ""}, ${m.scratch?.password || ""}\n`);
+    }
+    const blob = new Blob(content, { type: "text/csv" });
+    blob_url = URL.createObjectURL(blob);
+  }
+
+  $: username_placeholder = editing_member?.scratch?.username || generateUsername();
+  $: password_placeholder = editing_member?.scratch?.password || generateUsername();
 </script>
 
 <div>
@@ -57,7 +76,14 @@
 <section class="flex flex-col w-full mx-auto">
   <div class="flex flex-row justify-between items-center">
     <h3 class="text-3xl font-poppins font-bold text-primary">Members</h3>
-    <label for="member-modal" class="btn btn-accent font-quicksand font-bold">+ Add Members</label>
+    <div class="flex flex-row gap-4 items-center">
+      <button on:click={generateScratchAccounts} class="btn btn-secondary btn-outline">
+        <a href={blob_url} download={`${club.name}_scratch_accounts.csv`}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><path d="M14 2v6h6m-8 10v-6m-3 3l3 3l3-3"/></g></svg>
+        </a>
+      </button>
+      <label for="member-modal" class="btn btn-accent font-quicksand font-bold">+ Add Members</label>
+    </div>
   </div>
 
   <div class="divider" />
@@ -93,23 +119,22 @@
                 <div>
                   <div class="font-bold">{member.name}</div>
                   <div class="text-sm opacity-50">
-                    {#if member.scratch}
-                      {member.scratch.username}
-                    {:else}
-                      No username set
-                    {/if}
+                    {member.scratch?.username || "No username set"}
                   </div>
                 </div>
               </div>
             </td>
 
             <td>
-              Walking Around
+              Cat Walking
               <br/>
-              <span class="badge badge-ghost badge-sm">Submitted</span>
+              <span class="badge badge-ghost badge-sm">Walking Around</span>
             </td>
 
-            <td>Purple</td>
+            <td>
+              {member.scratch?.password || "No password set"}
+            </td>
+            
             <th>
               <div class="flex flex-row gap-4">
                 <button on:click={() => editing_member = member} class="btn btn-outline btn-secondary btn-xs"> 
@@ -205,16 +230,45 @@
     <label for="edit-modal" class="btn btn-sm btn-circle absolute right-2 top-2">
       ✕
     </label>
-    <form method="POST" action="?/updateMember" class="form-control align-start">
+    <form method="POST" action="?/updateMember" class="form-control gap-2 align-start">
       <h3 class="font-bold text-lg font-poppins">Edit Member</h3>
-      <label class="label">
-        <span class="label-text">Member Name</span>
-      </label>
-      <input 
-        name="name" type="text" value={editing_member?.name} 
-        class="input input-bordered input-primary" 
-      />
-      <input name="club_slug" type="hidden" value={club.slug} />
+      <div>
+        <label class="label">
+          <span class="label-text">Member Name</span>
+        </label>
+        <input 
+          name="name" type="text" value={editing_member?.name} 
+          class="input input-bordered input-primary w-full" 
+        />
+      </div>
+      <div class="divider" />
+      <div class="flex flex-row justify-between w-full">
+        <h3 class="label-text font-bold text-lg">Scratch Account</h3>
+        <button type="button" on:click={generatePlaceholders}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+            <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+              <rect width="12" height="12" x="2" y="10" rx="2" ry="2"/>
+              <path d="m17.92 14l3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6M6 18h.01M10 14h.01M15 6h.01M18 9h.01"/>
+            </g>
+          </svg>
+        </button>
+      </div>
+      <div>
+        <label class="label">
+          <span class="label-text">Username</span>
+        </label>
+        <input 
+          name="scratch_username" type="text" bind:value={username_placeholder}
+          class="input input-bordered input-secondary w-full"
+        />
+        <label class="label">
+          <span class="label-text">Password</span>
+        </label>
+        <input 
+          name="scratch_password" type="text" bind:value={password_placeholder}
+          class="input input-bordered input-secondary w-full"
+        />
+      </div>
       <input name="id" type="hidden" value={editing_member?.id} />
       <div class="modal-action">
         <label for="edit-modal">

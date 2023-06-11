@@ -9,7 +9,12 @@ export async function load({ locals, params }) {
     where: { slug: club_slug },
     select: {
       name: true,
-      members: true,
+      members: {
+        include: { scratch: true },
+        orderBy: [{
+          name: 'asc',
+        }]
+      },
       users: true,
       slug: true,
       projects: true,

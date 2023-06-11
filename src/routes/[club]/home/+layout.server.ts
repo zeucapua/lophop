@@ -29,6 +29,7 @@ export async function load({ cookies, params }) {
       id: true,
       name: true,
       submissions: true,
+      scratch: true,
     }
   });
 

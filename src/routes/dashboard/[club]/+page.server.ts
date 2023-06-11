@@ -28,9 +28,9 @@ export const actions = {
     const names = file_text.split("\n").filter(name => name.trim() != "");
     const members = [];
     for (const n of names) {
-      members.push({ name: n });
+       members.push({ name: n.replace(",", " ") });
     }
-    
+
     await prisma.club.update({
       where: { slug: club_slug },
       data: {
@@ -42,6 +42,36 @@ export const actions = {
       }
     });
   },
+
+  updateMember: async ({ params, request }) => {
+    const data = await request.formData();
+    const member_id = parseInt(data.get("id"));
+    const club_slug = params.club;
+
+    const updated_name = data.get("name");
+    const scratch_username = data.get("scratch_username");
+    const scratch_password = data.get("scratch_password");
+
+    await prisma.member.update({
+      where: { id: member_id },
+      data: {
+        name: updated_name,
+        scratch: {
+          upsert: {
+            create: {
+              username: scratch_username,
+              password: scratch_password,
+            },
+            update: {
+              username: scratch_username,
+              password: scratch_password,
+            }
+          } 
+        }
+      }
+    });   
+  },
+
 
   deleteMember: async ({ params, request }) => {
     const data = await request.formData();
