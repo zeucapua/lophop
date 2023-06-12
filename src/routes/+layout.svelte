@@ -7,10 +7,14 @@
   const user = data.session?.user;
 
   function logout() {
-    signOut();
     goto("/");
+    signOut();
   }
 </script>
+
+<svelte:head>
+  <title>Lophop: Hop into Coding Fun</title>
+</svelte:head>
 
 <main class="space-y-16 flex flex-col w-full h-full min-w-screen min-h-screen bg-base-100 p-8 lg:p-16 gap-8">
   
@@ -20,6 +24,7 @@
       <a href="/">
         <h1 class="btn btn-ghost font-poppins normal-case text-primary text-5xl font-bold">
           Lophop
+          <div class="badge badge-secondary badge-outline">Alpha</div>
         </h1>
       </a>
     </div>

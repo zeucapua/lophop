@@ -66,7 +66,7 @@ model Member {
   id          Int          @id @unique @default(autoincrement())
   name        String
   clubId      String
-  club        Club         @relation(fields: [clubId], references: [id])
+  club        Club         @relation(fields: [clubId], references: [id], onDelete: Cascade)
   submissions Submission[]
   attendance  String[]
   scratch     Details?
@@ -76,7 +76,7 @@ model Details {
   id       Int    @id @unique @default(autoincrement())
   username String
   password String
-  member   Member @relation(fields: [memberId], references: [id])
+  member   Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
   memberId Int    @unique
 }
 
@@ -85,7 +85,7 @@ model Project {
   title       String
   content     String?
   clubSlug    String
-  club        Club         @relation(fields: [clubSlug], references: [slug])
+  club        Club         @relation(fields: [clubSlug], references: [slug], onDelete: Cascade)
   submissions Submission[]
 }
 
@@ -96,7 +96,7 @@ model Submission {
   link      String
   createdAt DateTime @default(now())
   projectId String?
-  Project   Project? @relation(fields: [projectId], references: [id])
-  member    Member   @relation(fields: [memberId], references: [id])
+  Project   Project? @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  member    Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
   memberId  Int
 }

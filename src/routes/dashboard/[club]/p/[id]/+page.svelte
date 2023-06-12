@@ -7,7 +7,7 @@
   let submissions = data.submissions;
 </script>
 
-<a href={`/dashboard/${club}`} class="">Dashboard</a>
+<a href={`/dashboard/${club}`} class="btn btn-outline btn-secondary w-fit">Dashboard</a>
 
 <form method="POST">
   <div class="flex flex-row justify-between items-center">
@@ -21,8 +21,8 @@
       />
     </div>
     <div>
-      <button class="btn btn-outline btn-error" formaction="?/deleteProject">Delete</button>
-      <button class="btn btn-primary" formaction="?/saveProject">Save</button>
+      <button class="btn btn-outline btn-error font-quicksand" formaction="?/deleteProject">Delete</button>
+      <button class="btn btn-primary font-quicksand" formaction="?/saveProject">Save</button>
     </div>
   </div>
   <label class="label">
@@ -46,6 +46,6 @@
       {/each}
     </div>
   {:else}
-    <p class="font-quicksand font-bold text-center">No one has submitted a project yet. Be the first!</p> 
+    <p class="font-quicksand font-bold text-center">No one has submitted a project yet.</p> 
   {/if}
 </section>

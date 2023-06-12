@@ -4,6 +4,10 @@
   const projects = club.projects;
 </script>
 
+<svelte:head>
+  <title>Club {club.name} - Lophop</title>
+</svelte:head>
+
 <main class="flex flex-col w-full gap-8">
   <section class="flex flex-row justify-between items-center">
     <h1 class="text-3xl font-poppins text-primary font-bold">Club {club?.name}</h1>

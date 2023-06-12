@@ -16,6 +16,10 @@
   $: final_slug = setFinalSlug(modal_action);
 </script>
 
+<svelte:head>
+  <title>Dashboard - Lophop</title>
+</svelte:head>
+
 <h2 class="text-center text-5xl my-8 font-poppins font-bold text-primary">Dashboard</h2>
 
 <section class="flex flex-col w-full mx-auto">

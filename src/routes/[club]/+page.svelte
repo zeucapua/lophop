@@ -6,6 +6,10 @@
   let member_id : number;
 </script>
 
+<svelte:head>
+  <title>Entry - Club {data.club?.name}</title>
+</svelte:head>
+
 <section class="flex flex-col gap-8 w-full h-full justify-center">
   <h1 class="text-6xl font-poppins text-white text-center">What's the Secret?</h1>
   <form method="POST" class="flex flex-col gap-4 w-full items-center justify-center">

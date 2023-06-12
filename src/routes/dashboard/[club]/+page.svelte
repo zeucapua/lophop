@@ -13,7 +13,7 @@
 
   function generatePlaceholders() {
     username_placeholder = generateUsername();
-    password_placeholder = generateUsername();
+    password_placeholder = Math.random().toString(36).slice(2,10);
   }
 
   function generateScratchAccounts() {
@@ -29,8 +29,12 @@
   $: password_placeholder = editing_member?.scratch?.password || generateUsername();
 </script>
 
+<svelte:head>
+  <title>Dashboard - Club {club.name}</title> 
+</svelte:head>
+
 <div>
-  <a href="/dashboard" class="font-quicksand btn btn-accent w-fit">Dashboard</a>
+  <a href="/dashboard" class="font-quicksand btn btn-outline btn-secondary w-fit">Dashboard</a>
   <h2 class="text-center text-5xl my-8 font-poppins font-bold text-primary">Club {club.name}</h2>
 </div>
 
@@ -46,9 +50,9 @@
     {#if projects.length > 0}
       {#each projects as project}
 
-        <div class="card w-96 bg-neutral shadow-xl">
+        <div class="card w-96 bg-neutral shadow-xl font-quicksand">
           <div class="card-body">
-            <h2 class="card-title">{project.title}</h2>
+            <h2 class="card-title font-bold">{project.title}</h2>
             <p class="truncate text-base-content/80">{project.content ?? "No description yet"}</p>
             <div class="card-actions justify-end">
               <a href={`/dashboard/${club.slug}/p/${project.id}`} class="btn btn-secondary">
@@ -88,9 +92,9 @@
 
   <div class="divider" />
 
-  <div class="overflow-x-auto w-full">
+  <div class="overflow-x-auto w-full font-quicksand">
     <table class="table bg-neutral w-full">
-      <thead>
+      <thead class="font-poppins">
         <tr>
           <th>Attendance</th>
           <th>Name</th>
