@@ -42,7 +42,17 @@
   {#if submissions.length > 0}
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full p-4">
       {#each submissions as submission}
-        <ScratchEmbed {submission} />
+        <div class="relative">
+          <form method="POST" action="?/deleteSubmission" class="absolute z-20 self-end -right-2 -top-4"> 
+            <input name="submission_id" type="hidden" value={submission.id} />
+            <button class="btn btn-error">
+              Delete
+            </button>
+          </form>
+          <span class="z-10">
+            <ScratchEmbed {submission} />
+          </span>
+        </div>
       {/each}
     </div>
   {:else}

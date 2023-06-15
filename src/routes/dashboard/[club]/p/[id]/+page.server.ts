@@ -38,4 +38,13 @@ export const actions = {
   deleteProject: async ({ request }) => {
 
   },
+
+  deleteSubmission: async ({ request }) => {
+    const data = await request.formData();
+    const submission_id = data.get("submission_id");
+
+    await prisma.submission.delete({
+      where: { id: submission_id }
+    });
+  },
 }

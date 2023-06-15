@@ -12,7 +12,7 @@
   >
   </iframe>
   <div class="p-4 flex flex-row items-center justify-between">
-    <div class="flex flex-row gap-2 items-center">
+    <div class="flex flex-col gap-2 align-center">
       <h5 class="text-2xl font-poppins font-bold text-secondary">{submission.title}</h5>
       <p class="text-xl font-quicksand">by {submission.member.name}</p>
     </div>
