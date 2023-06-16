@@ -24,7 +24,7 @@
 <main class="space-y-16 flex flex-col w-full h-full min-w-screen min-h-screen bg-base-100 p-8 lg:p-16 gap-8">
   
   <!-- Navbar -->
-  <section class="fixed inset-x-0 top-0 navbar shadow-xl bg-neutral rounded-lg items-center">
+  <section class="z-40 fixed inset-x-0 top-0 navbar shadow-xl bg-neutral rounded-lg items-center">
     <div class="flex-1 p-4">
       <a href="/">
         <h1 class="btn btn-ghost font-poppins normal-case text-primary text-5xl font-bold">
@@ -54,7 +54,7 @@
   </section>
 
   <!-- children +toppage.svelte -->
-  <div class="flex flex-col gap-8">
+  <div class="z-20 flex flex-col gap-8">
     <slot />
   </div>
 
