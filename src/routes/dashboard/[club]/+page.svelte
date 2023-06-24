@@ -55,7 +55,7 @@
             <h2 class="card-title font-bold">{project.title}</h2>
             <p class="truncate text-base-content/80">{project.content ?? "No description yet"}</p>
             <div class="card-actions justify-end">
-              <a href={`/dashboard/${club.slug}/p/${project.id}`} class="btn btn-secondary">
+              <a href={`/dashboard/${club.slug}/p?id=${project.id}`} class="btn btn-secondary">
                 Manage
               </a>
             </div>

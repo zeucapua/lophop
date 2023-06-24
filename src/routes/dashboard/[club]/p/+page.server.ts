@@ -1,11 +1,12 @@
 import { prisma } from "$lib/prisma";
 import { error } from "@sveltejs/kit";
 
-export async function load({ params }) {
-  const { id, club } = params;
+export async function load({ url, params }) {
+  const { club } = params;
+  const project_id = url.searchParams.get("id");
 
   const response = await prisma.project.findUnique({
-    where: { id },
+    where: { id: project_id },
     include: { submissions: { include: { member: true }}}
   });
 
@@ -17,8 +18,8 @@ export async function load({ params }) {
 }
 
 export const actions = {
-  saveProject: async ({ params, request }) => {
-    const { id } = params;
+  saveProject: async ({ url, request }) => {
+    const project_id = url.searchParams.get("id");
     const data = await request.formData();
     const title = data.get("title");
     const content = data.get("content");

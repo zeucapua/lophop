@@ -2,7 +2,7 @@ import { json } from "@sveltejs/kit";
 import { prisma } from "$lib/prisma";
 
 export async function POST({ request }) {
-    const { checked, member_id, club_slug } = await request.json();
+    const { checked, member_id } = await request.json();
     
     console.log({ checked });
     

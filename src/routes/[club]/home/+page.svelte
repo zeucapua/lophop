@@ -20,7 +20,7 @@
           <h3 class="font-poppins card-title">{project.title}</h3>
           <p class="font-quicksand text-ellipsis">{project.content}</p>
           <div class="card-actions justify-end">
-            <a href={`/${club.slug}/home/p/${project.id}`}>
+            <a href={`/${club.slug}/home/p?id=${project.id}`}>
               <button class="btn btn-secondary">More</button>
             </a>
           </div>

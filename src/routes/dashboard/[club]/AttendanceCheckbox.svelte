@@ -3,7 +3,6 @@
   import type { Member } from "@prisma/client";
 
   export let member : Member;
-  export let club_slug : string;
 
   let checked : boolean;
 
@@ -15,7 +14,7 @@
     console.log(member.id, { checked });
     await fetch("/api/attendance", {
       method: "POST",
-      body: JSON.stringify({ checked, member_id: member.id, club_slug }),
+      body: JSON.stringify({ checked, member_id: member.id }),
       headers: { "Content-Type": "application/json" },
     });
   }

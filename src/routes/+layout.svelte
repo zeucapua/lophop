@@ -4,6 +4,7 @@
   import { signIn, signOut } from "@auth/sveltekit/client";
   import { dev } from '$app/environment';
   import { inject } from '@vercel/analytics';
+  import { page } from '$app/stores';
    
   // Vercel analytics
   inject({ mode: dev ? 'development' : 'production' });
@@ -15,6 +16,8 @@
     goto("/");
     signOut();
   }
+
+  console.log($page.route.id);
 </script>
 
 <svelte:head>
@@ -34,23 +37,25 @@
       </a>
     </div>
 
-    <div class="flex-none px-4">
-      {#if !user}
-        <button on:click={() => signIn("github")} class="font-quicksand btn btn-secondary">
-          Log in with Github 
-        </button>
-      {:else}
-        <div class="dropdown dropdown-end">
-          <label tabindex="-1" class="btn btn-ghost btn-circle avatar">
-            <img src={user.image} alt={``} class="w-12 rounded-full" />
-          </label>
-          <ul tabindex="-1" class="dropdown-content menu p-2 shadow-xl bg-base-100 rounded-box border-2 border-base-200 w-fit">
-            <li><a href="/dashboard">Dashboard</a></li>
-            <li class="text-error"><button on:click={logout}>Logout</button></li>
-          </ul>
-        </div>
-      {/if}
-    </div>
+    {#if $page.route.id === "/" || $page.route.id.includes("dashboard")}
+      <div class="flex-none px-4">
+        {#if !user}
+          <button on:click={() => signIn("github")} class="font-quicksand btn btn-secondary">
+            Log in with Github 
+          </button>
+        {:else}
+          <div class="dropdown dropdown-end">
+            <label tabindex="-1" class="btn btn-ghost btn-circle avatar">
+              <img src={user.image} alt={``} class="w-12 rounded-full" />
+            </label>
+            <ul tabindex="-1" class="dropdown-content menu p-2 shadow-xl bg-base-100 rounded-box border-2 border-base-200 w-fit">
+              <li><a href="/dashboard">Dashboard</a></li>
+              <li class="text-error"><button on:click={logout}>Logout</button></li>
+            </ul>
+          </div>
+        {/if}
+      </div>
+    {/if}
   </section>
 
   <!-- children +toppage.svelte -->
