@@ -46,7 +46,7 @@
   
   <div class="divider" />
   
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
     {#if projects.length > 0}
       {#each projects as project}
 
