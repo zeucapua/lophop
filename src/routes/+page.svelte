@@ -1,5 +1,5 @@
 <script lang="ts">
-  let club_slug : string;
+  export let form;
 </script>
 
 <div class="flex flex-col gap-8 p-8 justify-center">
@@ -7,11 +7,21 @@
     Hop in to Coding Fun!
   </h2>
 
-  <div class="join my-8 w-fit rounded-xl border border-neutral self-center">
-    <span class="join-item text-2xl self-center p-4">lophop.club/</span>
-    <input bind:value={club_slug} type="text" placeholder="awesome-club" class="join-item p-4 w-full h-full  text-2xl input input-bordered" />
-    <a href={`/${club_slug}`} class="join-item self-center rounded-r-lg btn btn-square p-2 h-full btn-accent">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-    </a>  
-  </div>
+  {#if form?.status === "missing"}
+    <div class="alert alert-error w-fit self-center text-center font-bold">
+      <p>Error: Cannot find club! Make sure the name is spelled correctly</p>
+    </div>
+  {/if}
+
+  <form method="POST" action="?/redirectToClub" class="join items-center self-center font-quicksand">
+    <p class="join-item text-2xl p-4 border">lophop.club</p>
+    <input 
+      class="join-item input input-bordered h-full p-4 font-bold text-2xl"
+      name="club_slug" type="text" placeholder="awesome-wizards" />
+    <button class="join-item btn btn-accent h-full p-4">
+      <svg viewbox="0 0 32 32" width="32" height="32" stroke="currentColor" fill="currentColor"><path d="M31.7 30.3L22 20.5c1.8-2.2 2.9-5 2.9-8 0-6.9-5.6-12.5-12.5-12.5s-12.5 5.6-12.5 12.5 5.6 12.5 12.5 12.5c3.1 0 6-1.2 8.2-3.1l9.7 9.8c0.4 0.4 1 0.4 1.4 0 0.4-0.4 0.4-1 0-1.4zM12.4 23c-5.8 0-10.5-4.7-10.5-10.5S6.6 2 12.4 2c5.8 0 10.5 4.7 10.5 10.5S18.2 23 12.4 23z"  /></svg>
+    </button>
+  </form>
+
+
 </div>

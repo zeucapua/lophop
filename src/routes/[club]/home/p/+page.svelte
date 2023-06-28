@@ -1,9 +1,13 @@
 <script lang="ts">
   import ScratchEmbed from '$lib/ScratchEmbed.svelte';
+  import { Submission } from "@prisma/client";
+
   export let data;
   const project = data.project;
   const submissions = data.submissions;
   const member = data.member;
+
+  let current_submission : Submission;
 </script>
 
 <a href={`/${data.club.slug}/home`} class="font-quicksand w-fit btn btn-accent">Home</a>
@@ -19,6 +23,7 @@
   </div>
   <div class="divider" />
   {#if submissions.length > 0}
+    <!-- TODO: update to single submission display to increase performance -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full p-4">
       {#each submissions as submission}
         <ScratchEmbed {submission} />
@@ -40,15 +45,16 @@
       <label class="label">
         <span class="label-text">Title</span> 
       </label>
-      <input name="title" type="text" class="w-full input input-bordered" />
+      <input required name="title" type="text" class="w-full input input-bordered" />
     </div>
     <div>
       <label class="label">
         <span class="label-text">Link</span> 
       </label>
-      <input name="link" type="url" class="w-full input input-bordered" />
+      <input required name="link" type="url" class="w-full input input-bordered" />
     </div>
     <input name="member_id" type="hidden" value={member?.id} />
+    <input name="project_id" type="hidden" value={project.id} />
     <div class="modal-action">
       <label for="submission-modal">
         <button class="btn btn-accent">Done</button>

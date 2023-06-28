@@ -1,5 +1,5 @@
 import { prisma } from "$lib/prisma";
-import { error } from "@sveltejs/kit";
+import { error, redirect } from "@sveltejs/kit";
 
 export async function load({ url, params }) {
   const { club } = params;
@@ -18,14 +18,14 @@ export async function load({ url, params }) {
 }
 
 export const actions = {
-  saveProject: async ({ url, request }) => {
-    const project_id = url.searchParams.get("id");
+  saveProject: async ({ params, request }) => {
     const data = await request.formData();
     const title = data.get("title");
     const content = data.get("content");
+    const project_id = data.get("project_id");
 
     const project = await prisma.project.update({
-      where: { id },
+      where: { id: project_id },
       data: {
         title,
         content
@@ -33,19 +33,21 @@ export const actions = {
     });
 
     if (!project) { throw error(500, "Project can't be updated. Try again."); }
-    return { title, content }
+    throw redirect(303, `/dashboard/${params.club}/p?id=${project_id}`);
   },
 
   deleteProject: async ({ request }) => {
 
   },
 
-  deleteSubmission: async ({ request }) => {
+  deleteSubmission: async ({ params, request }) => {
     const data = await request.formData();
     const submission_id = data.get("submission_id");
 
     await prisma.submission.delete({
       where: { id: submission_id }
     });
+    
+    throw redirect(303, `/dashboard/${params.club}/p?id=${project_id}`);
   },
 }

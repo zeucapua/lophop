@@ -5,6 +5,7 @@
   const club = data.club;
   let project = data.project;
   let submissions = data.submissions;
+
 </script>
 
 <a href={`/dashboard/${club}`} class="btn btn-outline btn-secondary w-fit">Dashboard</a>
@@ -32,6 +33,7 @@
     name="content" value={project.content} 
     class="scroll-p-8 resize-none text-xl textarea textarea-bordered w-full " 
   />
+  <input name="project_id" type="hidden" value={project.id} />
 </form>
 
 <section>

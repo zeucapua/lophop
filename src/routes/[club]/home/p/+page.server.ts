@@ -1,5 +1,5 @@
 import { prisma } from "$lib/prisma";
-import { error } from "@sveltejs/kit";
+import { error, fail, redirect } from "@sveltejs/kit";
 
 export async function load({ url }) {
   const project_id = url.searchParams.get("id");
@@ -19,12 +19,12 @@ export async function load({ url }) {
 
 
 export const actions = {
-  submitProject: async ({ url, request }) => {
+  submitProject: async ({ params, url, request }) => {
     const data = await request.formData();
     const title = data.get("title");
     const link = data.get("link");
     const member_id = parseInt(data.get("member_id"));
-    const project_id = url.searchParams.get("id");
+    const project_id = data.get("project_id");
 
     const submission = await prisma.submission.create({
       data: {
@@ -35,6 +35,9 @@ export const actions = {
       }
     });
 
-    if (!submission) { throw error(500, "Cannot submit right now"); }
+    if (!submission) { 
+      throw fail(500, { message: "Cannot submit right now"}); 
+    }
+    throw redirect(303, `/${params.club}/home/p?id=${project_id}`);
   },
 }
