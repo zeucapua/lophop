@@ -3,6 +3,7 @@ import { redirect, error, fail } from "@sveltejs/kit";
 
 export async function load({ cookies, params }) {
   const club_slug = params.club;
+
   
   const club = await prisma.club.findUnique({
     where: { slug: club_slug },
