@@ -43,6 +43,7 @@ export const actions = {
   deleteSubmission: async ({ params, request }) => {
     const data = await request.formData();
     const submission_id = data.get("submission_id");
+    const project_id = data.get("project_id");
 
     await prisma.submission.delete({
       where: { id: submission_id }

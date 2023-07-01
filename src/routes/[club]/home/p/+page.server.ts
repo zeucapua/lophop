@@ -19,7 +19,7 @@ export async function load({ url }) {
 
 
 export const actions = {
-  submitProject: async ({ params, url, request }) => {
+  submitProject: async ({ params, request }) => {
     const data = await request.formData();
     const title = data.get("title");
     const link = data.get("link");

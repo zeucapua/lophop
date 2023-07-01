@@ -3,13 +3,13 @@
   export let submission : Submission;
 </script>
 
-<section class="card p-2 border-4 w-fit">
+<section class="card p-2 w-fit">
   <iframe src={`${submission.link}/embed?autostart=false`}
     loading="lazy"
     allowtransparency="true" 
     width="485" height="402" 
     frameborder="0" scrolling="no" 
-    class="rounded-md"
+    class="rounded-md p-4 border"
   >
   </iframe>
   <div class="p-4 flex flex-row items-center justify-between">
