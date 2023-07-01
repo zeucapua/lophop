@@ -23,11 +23,29 @@
   </div>
   <div class="divider" />
   {#if submissions.length > 0}
-    <!-- TODO: update to single submission display to increase performance -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full p-4">
-      {#each submissions as submission}
-        <ScratchEmbed {submission} />
-      {/each}
+    <div class="flex flex-col divide-x lg:flex-row w-full h-full p-4 gap-4 border rounded-md">
+      <div class="basis-1/3 flex flex-row lg:flex-col gap-4 overflow-x-auto lg:overflow-y-auto">
+        {#each submissions as submission}
+          <div class="flex flex-row w-md p-4 gap-4 border rounded-md items-center">
+            <input class="peer radio" type="radio" bind:group={current_submission} value={submission} /> 
+            <div class="peer-checked:font-bold flex flex-col">
+              <p class="text-ellipsis">{submission.title}</p>
+              <p class="text-secondary">{submission.member.name}</p>
+            </div>
+          </div>
+        {/each}
+      </div>
+
+      <div class="w-full h-full basis-2/3 p-8">
+        {#if current_submission}
+          <ScratchEmbed submission={current_submission} />
+          <form method="POST" action="?/deleteSubmission">
+            <input name="submission_id" type="hidden" value={current_submission.id} />
+            <input name="project_id" type="hidden" value={project.id} />
+            <button class="btn btn-outline btn-error">Delete</button>
+          </form>
+        {/if}
+      </div>
     </div>
   {:else}
     <p class="font-quicksand font-bold text-center">No one has submitted a project yet. Be the first!</p> 
